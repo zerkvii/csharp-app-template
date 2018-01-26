@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
-
         xmlns:local="clr-namespace:myapp"
         mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -18,7 +17,7 @@
         Background="Transparent"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-        Title="MainWindow" Height="600" Width="900">
+        Title="MainWindow" Height="600" Width="900" Icon="app.png">
     <!--<Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -40,38 +39,62 @@
             </Border>
         </DockPanel>
         <StackPanel Name="leftbar" Background="#FFAEAEAE" Width="60" Margin="20,50,0,20" HorizontalAlignment="Left" VerticalAlignment="Stretch"  >
-            <Button Height="60" Margin="-30,0,-30,0"  Background="Transparent" BorderBrush="Transparent">
-                <fa:ImageAwesome Icon="Circle" Margin="0,0,0,0" Width="40" Height="40" Foreground="#FF252525">
+            <Button Height="60" Margin="0,0,0,0"  Background="Transparent" BorderBrush="Transparent">
+                <fa:ImageAwesome Icon="Circle" MouseEnter="Set_cir_cursor" Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
                     <fa:ImageAwesome.Effect>
                         <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
                     </fa:ImageAwesome.Effect>
                 </fa:ImageAwesome>
             </Button>
-            <fa:ImageAwesome Icon="PencilSquareOutline" Margin="0,20,0,0" Width="40" Height="40" Foreground="#FF252525">
-                <fa:ImageAwesome.Effect>
-                    <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
-                </fa:ImageAwesome.Effect>
-            </fa:ImageAwesome>
-            <fa:ImageAwesome Icon="Eraser" Margin="0,20,0,0" Width="40" Height="40" Foreground="#FF252525">
-                <fa:ImageAwesome.Effect>
-                    <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
-                </fa:ImageAwesome.Effect>
-            </fa:ImageAwesome>
-            <fa:ImageAwesome Icon="PlusSquare" Margin="0,20,0,0" Width="40" Height="40" Foreground="#FF252525">
-                <fa:ImageAwesome.Effect>
-                    <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
-                </fa:ImageAwesome.Effect>
-            </fa:ImageAwesome>
-            <fa:ImageAwesome Icon="MinusSquare" Margin="0,20,0,0" Width="40" Height="40" Foreground="#FF252525">
-                <fa:ImageAwesome.Effect>
-                    <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
-                </fa:ImageAwesome.Effect>
-            </fa:ImageAwesome>
-            <fa:ImageAwesome Icon="Times" Margin="0,20,0,0" Width="40" Height="40" Foreground="#FF252525">
-                <fa:ImageAwesome.Effect>
-                    <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
-                </fa:ImageAwesome.Effect>
-            </fa:ImageAwesome>
+            <Button Height="60" Margin="0,0,0,0"  Background="Transparent" BorderBrush="Transparent">
+                <fa:ImageAwesome Icon="PencilSquareOutline" MouseEnter="Set_pen_cursor" Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
+                    <fa:ImageAwesome.Effect>
+                        <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
+                    </fa:ImageAwesome.Effect>
+                </fa:ImageAwesome>
+            </Button>
+            <Button Height="60" Margin="0,0,0,0"  Background="Transparent" BorderBrush="Transparent">
+                <fa:ImageAwesome Icon="Bomb" MouseEnter="Set_bomb_cursor" Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
+                    <fa:ImageAwesome.Effect>
+                        <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
+                    </fa:ImageAwesome.Effect>
+                </fa:ImageAwesome>
+            </Button>
+            <Button Height="60" Margin="0,0,0,0"  Background="Transparent" BorderBrush="Transparent">
+                <fa:ImageAwesome Icon="Eraser" MouseEnter="Set_era_cursor" Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
+                    <fa:ImageAwesome.Effect>
+                        <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
+                    </fa:ImageAwesome.Effect>
+                </fa:ImageAwesome>
+            </Button>
+            <Button Height="60" Margin="0,0,0,0"  Background="Transparent" BorderBrush="Transparent">
+                <fa:ImageAwesome Icon="Plus" MouseEnter="Set_pen_cursor" Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
+                    <fa:ImageAwesome.Effect>
+                        <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
+                    </fa:ImageAwesome.Effect>
+                </fa:ImageAwesome>
+            </Button>
+            <Button Height="60" Margin="0,0,0,0"  Background="Transparent" BorderBrush="Transparent">
+                <fa:ImageAwesome Icon="Times" MouseEnter="Set_pen_cursor" Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
+                    <fa:ImageAwesome.Effect>
+                        <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
+                    </fa:ImageAwesome.Effect>
+                </fa:ImageAwesome>
+            </Button>
+            <Button Height="60" Margin="0,0,0,0"  Background="Transparent" BorderBrush="Transparent">
+                <fa:ImageAwesome Icon="Minus"  MouseEnter="Set_pen_cursor" Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
+                    <fa:ImageAwesome.Effect>
+                        <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
+                    </fa:ImageAwesome.Effect>
+                </fa:ImageAwesome>
+            </Button>
+            <Button Height="60" Margin="0,0,0,0"  Background="Transparent" BorderBrush="Transparent">
+                <fa:ImageAwesome Icon="MousePointer" MouseEnter="Set_pen_cursor" Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
+                    <fa:ImageAwesome.Effect>
+                        <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
+                    </fa:ImageAwesome.Effect>
+                </fa:ImageAwesome>
+            </Button>
         </StackPanel>
     </Grid>
 </Window>

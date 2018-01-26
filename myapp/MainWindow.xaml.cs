@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.IO;
 namespace myapp
 {
     /// <summary>
@@ -21,14 +21,34 @@ namespace myapp
     public partial class MainWindow : Window
     {
         public Boolean is_max { set; get; }
-        public MainWindow()
+
+        //public Boolean cursor_st { set; get; }
+        public sealed class cursorhelper
         {
+            private cursorhelper() { }
+            public static Cursor frombytearray(byte[] array)
+            {
+                using (MemoryStream memory = new MemoryStream(array))
+                {
+                    return new Cursor(memory);
+                }
+            }
+
+        }
+        public Cursor cur { set; get; }
+        public MainWindow()
+
+        {
+            cur = cursorhelper.frombytearray(Properties.Resources.normal_select_blue);
+            this.Cursor = cur;
             InitializeComponent();
             is_max = false;
+            //cursor_st = false;
         }
 
         private void drag(object sender, MouseButtonEventArgs e)
         {
+
             this.DragMove();
         }
 
@@ -57,5 +77,51 @@ namespace myapp
             this.WindowState = WindowState.Minimized;
 
         }
+
+        private void Set_cir_cursor(object sender, MouseEventArgs e)
+        {
+            //if (cursor_st == false)
+            //{
+            cur = cursorhelper.frombytearray(Properties.Resources.circ);
+            this.Cursor = cur;
+            //change_cur_sta();
+            //}
+            //    else
+            //    {
+            //        change_cur_sta();
+            //        init_cur();
+            //    }
+            //}
+        }
+
+        private void Set_pen_cursor(object sender, MouseEventArgs e)
+        {
+            cur = cursorhelper.frombytearray(Properties.Resources.handwriting);
+            this.Cursor = cur;
+        }
+
+        private void Set_bomb_cursor(object sender, MouseEventArgs e)
+        {
+
+            cur = cursorhelper.frombytearray(Properties.Resources.bomb);
+            this.Cursor = cur;
+
+        }
+
+        private void Set_era_cursor(object sender, MouseEventArgs e)
+        {
+
+            cur = cursorhelper.frombytearray(Properties.Resources.eraser);
+            this.Cursor = cur;
+        }
+        //public void init_cur()
+        //{
+        //    cur = cursorhelper.frombytearray(Properties.Resources.normal_select_blue);
+        //    this.Cursor = cur;
+        //}
+        //public void change_cur_sta()
+        //{
+        //    cursor_st=cursor_st?false:true;
+        //}
     }
 }

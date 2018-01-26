@@ -92,7 +92,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
@@ -109,6 +109,27 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="circle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\app.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="app.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\handwriting.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\normal-select-blue.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\circ.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cursor.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\eraser.cur" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
