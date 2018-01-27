@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using MaterialDesignThemes.Wpf;
+
 namespace myapp
 {
     /// <summary>
@@ -126,6 +128,11 @@ namespace myapp
         {
             cur = cursorhelper.frombytearray(Properties.Resources.normal_select_blue);
             this.Cursor = cur;
+        }
+
+        private void set_bomb(object sender, RoutedEventArgs e)
+        {
+            this.is_bomb.Kind = PackIconKind.Check;
         }
         //public void init_cur()
         //{
