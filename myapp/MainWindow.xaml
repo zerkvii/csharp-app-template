@@ -18,13 +18,20 @@
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="600" Width="900" Icon="app.png">
-    <!--<Window.Resources>
+    <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ProgressBar.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.CheckBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ListBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.RadioButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </Window.Resources>-->
+    </Window.Resources>
     <Grid>
         <materialDesign:Card VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#FFF7DFDF" Margin="10,10,10,10"/>
         <DockPanel Name="titlebar" MouseLeftButtonDown="drag" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="40" Background="#FF646464" Margin="20,10,20,0">
@@ -68,33 +75,73 @@
                 </fa:ImageAwesome>
             </Button>
             <Button Height="60" Margin="0,0,0,0"  Background="Transparent" BorderBrush="Transparent">
-                <fa:ImageAwesome Icon="Plus" MouseEnter="Set_pen_cursor" Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
+                <fa:ImageAwesome Icon="Plus" MouseEnter="Set_cross_cursor" Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
                     <fa:ImageAwesome.Effect>
                         <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
                     </fa:ImageAwesome.Effect>
                 </fa:ImageAwesome>
             </Button>
             <Button Height="60" Margin="0,0,0,0"  Background="Transparent" BorderBrush="Transparent">
-                <fa:ImageAwesome Icon="Times" MouseEnter="Set_pen_cursor" Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
+                <fa:ImageAwesome Icon="Times" MouseEnter="Set_cross_cursor" Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
                     <fa:ImageAwesome.Effect>
                         <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
                     </fa:ImageAwesome.Effect>
                 </fa:ImageAwesome>
             </Button>
             <Button Height="60" Margin="0,0,0,0"  Background="Transparent" BorderBrush="Transparent">
-                <fa:ImageAwesome Icon="Minus"  MouseEnter="Set_pen_cursor" Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
+                <fa:ImageAwesome Icon="Minus"  MouseEnter="Set_cross_cursor" Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
                     <fa:ImageAwesome.Effect>
                         <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
                     </fa:ImageAwesome.Effect>
                 </fa:ImageAwesome>
             </Button>
             <Button Height="60" Margin="0,0,0,0"  Background="Transparent" BorderBrush="Transparent">
-                <fa:ImageAwesome Icon="MousePointer" MouseEnter="Set_pen_cursor" Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
+                <fa:ImageAwesome Icon="MousePointer" MouseEnter="Set_mouse_cursor" Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
                     <fa:ImageAwesome.Effect>
                         <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
                     </fa:ImageAwesome.Effect>
                 </fa:ImageAwesome>
             </Button>
         </StackPanel>
+        <DockPanel Width="150" Background="#FFCB9B9B" HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,50,20,20">
+            <DockPanel.Effect>
+                <DropShadowEffect Direction="175" BlurRadius="10" ShadowDepth="3" Color="#FFDEB0B0"/>
+            </DockPanel.Effect>
+            <Grid DockPanel.Dock="Top" Height="500" Background="#FFB45E5E">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="延时" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="10.5,22.5,82.5,15" Width="57" Foreground="#DDFFF7F7"/>
+                <TextBox Grid.Row="0" Margin="72,3,16.5,18" Foreground="#DDFFF1F1" CaretBrush="#FF743FD3" SelectionBrush="#FF5F9BD6" BorderBrush="#897ADC75"></TextBox>
+                <TextBlock Grid.Row="1" Text="分组号" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="10.5,22.5,82.5,15" Width="57" Foreground="#DDFFF7F7"/>
+                <ComboBox HorizontalAlignment="Left"  Margin="80,15.64,0,0" Grid.Row="1" VerticalAlignment="Top" Width="37.5" Height="27.6">
+                </ComboBox>
+                <TextBlock Grid.Row="2" Text="坐标" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="10.5,22.5,97.5,15" Width="42" Foreground="#DDFFF7F7"/>
+                <TextBlock Grid.Row="2" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="50.5,23.5,84,14" Width="15.5" Foreground="#DDFFF7F7"><Run Text="X"/><Run Text=":"/></TextBlock>
+                <TextBlock Grid.Row="2" Name="xlabel" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="14" Margin="68.5,26.5,53.5,12" Width="28" Foreground="#DDFFF7F7" Text="——"/>
+                <TextBlock Grid.Row="2" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="99.5,23.5,35,14" Width="15.5" Foreground="#DDFFF7F7"><Run Text="Y"/><Run Text=":"/></TextBlock>
+                <TextBlock Grid.Row="2" x:Name="ylabel" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="14" Margin="116,26.5,6,12" Width="28" Foreground="#DDFFF7F7" Text="——"/>
+                <TextBlock Grid.Row="3" Text="装药状态" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="10.5,22.5,59.5,15" Width="80" Foreground="#DDFFF7F7"/>
+
+                <ToggleButton Grid.Row="3" IsChecked="True" BorderBrush="Transparent" Height="Auto" Margin="97.5,20.68,25.5,12.18" Width="Auto" Background="#FF5B5B5B">
+                    <ToggleButton.Style >
+                        <Style TargetType="ToggleButton" BasedOn="{StaticResource MaterialDesignFlatPrimaryToggleButton}">
+                            <Style.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter Property="ToolTip" Value="已装药"></Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                            <Setter Property="ToolTip" Value="未装药"></Setter>
+                        </Style>
+                    </ToggleButton.Style>
+                    <materialDesign:PackIcon Kind="Check" Height="21" Width="21" Foreground="#FFBBB4CD"></materialDesign:PackIcon>
+                </ToggleButton>
+            </Grid>
+        </DockPanel>
     </Grid>
 </Window>

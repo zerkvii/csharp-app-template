@@ -117,6 +117,7 @@
     <Resource Include="app.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\cross.ani" />
     <None Include="Resources\handwriting.cur" />
   </ItemGroup>
   <ItemGroup>

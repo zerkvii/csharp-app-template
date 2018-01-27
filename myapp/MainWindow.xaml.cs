@@ -36,6 +36,7 @@ namespace myapp
 
         }
         public Cursor cur { set; get; }
+     
         public MainWindow()
 
         {
@@ -112,6 +113,18 @@ namespace myapp
         {
 
             cur = cursorhelper.frombytearray(Properties.Resources.eraser);
+            this.Cursor = cur;
+        }
+
+        private void Set_cross_cursor(object sender, MouseEventArgs e)
+        {
+            cur = cursorhelper.frombytearray(Properties.Resources.cross);
+            this.Cursor = cur;
+        }
+
+        private void Set_mouse_cursor(object sender, MouseEventArgs e)
+        {
+            cur = cursorhelper.frombytearray(Properties.Resources.normal_select_blue);
             this.Cursor = cur;
         }
         //public void init_cur()

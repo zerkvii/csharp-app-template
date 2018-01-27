@@ -103,6 +103,16 @@ namespace myapp.Properties {
         /// <summary>
         ///   查找 System.Byte[] 类型的本地化资源。
         /// </summary>
+        public static byte[] cross {
+            get {
+                object obj = ResourceManager.GetObject("cross", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
         public static byte[] eraser {
             get {
                 object obj = ResourceManager.GetObject("eraser", resourceCulture);
