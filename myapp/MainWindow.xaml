@@ -32,9 +32,12 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+
+
+
     <Grid>
-        <materialDesign:Card VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#FFF7DFDF" Margin="10,10,10,10"/>
-        <DockPanel Name="titlebar" MouseLeftButtonDown="drag" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="40" Background="#FF646464" Margin="20,10,20,0">
+        <materialDesign:Card VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#FFE0F2F1" Margin="10,10,10,10"/>
+        <DockPanel Name="titlebar" MouseLeftButtonDown="drag" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="40" Background="#FF009688" Margin="20,10,20,0">
             <Border Background="Transparent" Cursor="Hand" MouseLeftButtonDown="close_wd" >
                 <materialDesign:PackIcon  Kind="Close" Width="30" Height="30" Margin="5,5,0,0"></materialDesign:PackIcon>
             </Border>
@@ -45,104 +48,105 @@
                 <materialDesign:PackIcon  Kind="WindowMinimize" Width="30" Height="30" Margin="5,5,0,0"></materialDesign:PackIcon>
             </Border>
         </DockPanel>
-        <StackPanel Name="leftbar" Background="#FFAEAEAE" Width="60" Margin="20,50,0,20" HorizontalAlignment="Left" VerticalAlignment="Stretch"  >
-            <Button Height="60" Margin="0,0,0,0"  Background="Transparent" BorderBrush="Transparent">
-                <fa:ImageAwesome Icon="Circle" MouseEnter="Set_cir_cursor" Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
+        <StackPanel Name="leftbar" Background="#FF00796B" Width="60" Margin="20,50,0,20" HorizontalAlignment="Left" VerticalAlignment="Stretch"  >
+            <Button Height="60" Margin="0,0,0,0" Click="Set_cir_cursor" Background="Transparent" BorderBrush="Transparent">
+                <fa:ImageAwesome Icon="Circle"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF880E4F">
                     <fa:ImageAwesome.Effect>
                         <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
                     </fa:ImageAwesome.Effect>
                 </fa:ImageAwesome>
             </Button>
-            <Button Height="60" Margin="0,0,0,0"  Background="Transparent" BorderBrush="Transparent">
-                <fa:ImageAwesome Icon="PencilSquareOutline" MouseEnter="Set_pen_cursor" Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
+            <Button Height="60" Margin="0,0,0,0" Click="Set_pen_cursor" Background="Transparent" BorderBrush="Transparent">
+                <fa:ImageAwesome Icon="PencilSquareOutline"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF009688">
                     <fa:ImageAwesome.Effect>
                         <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
                     </fa:ImageAwesome.Effect>
                 </fa:ImageAwesome>
             </Button>
-            <Button Height="60" Margin="0,0,0,0"  Background="Transparent" BorderBrush="Transparent">
-                <fa:ImageAwesome Icon="Bomb" MouseEnter="Set_bomb_cursor" Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
+            <Button Height="60" Margin="0,0,0,0" Click="Set_bomb_cursor" Background="Transparent" BorderBrush="Transparent">
+                <fa:ImageAwesome Icon="Bomb"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF0A0C0B">
                     <fa:ImageAwesome.Effect>
                         <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
                     </fa:ImageAwesome.Effect>
                 </fa:ImageAwesome>
             </Button>
-            <Button Height="60" Margin="0,0,0,0"  Background="Transparent" BorderBrush="Transparent">
-                <fa:ImageAwesome Icon="Eraser" MouseEnter="Set_era_cursor" Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
+            <Button Height="60" Margin="0,0,0,0" Click="Set_era_cursor"  Background="Transparent" BorderBrush="Transparent">
+                <fa:ImageAwesome Icon="Eraser"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF2C442D">
                     <fa:ImageAwesome.Effect>
                         <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
                     </fa:ImageAwesome.Effect>
                 </fa:ImageAwesome>
             </Button>
-            <Button Height="60" Margin="0,0,0,0"  Background="Transparent" BorderBrush="Transparent">
-                <fa:ImageAwesome Icon="Plus" MouseEnter="Set_cross_cursor" Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
+            <Button Height="60" Margin="0,0,0,0" Click="Set_cross_cursor" Background="Transparent" BorderBrush="Transparent">
+                <fa:ImageAwesome Icon="Plus"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
                     <fa:ImageAwesome.Effect>
                         <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
                     </fa:ImageAwesome.Effect>
                 </fa:ImageAwesome>
             </Button>
-            <Button Height="60" Margin="0,0,0,0"  Background="Transparent" BorderBrush="Transparent">
-                <fa:ImageAwesome Icon="Times" MouseEnter="Set_cross_cursor" Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
+            <Button Height="60" Margin="0,0,0,0" Click="Set_cross_cursor" Background="Transparent" BorderBrush="Transparent">
+                <fa:ImageAwesome Icon="Times"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
                     <fa:ImageAwesome.Effect>
                         <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
                     </fa:ImageAwesome.Effect>
                 </fa:ImageAwesome>
             </Button>
-            <Button Height="60" Margin="0,0,0,0"  Background="Transparent" BorderBrush="Transparent">
-                <fa:ImageAwesome Icon="Minus"  MouseEnter="Set_cross_cursor" Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
+            <Button Height="60" Margin="0,0,0,0" Click="Set_cross_cursor" Background="Transparent" BorderBrush="Transparent">
+                <fa:ImageAwesome Icon="Minus"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
                     <fa:ImageAwesome.Effect>
                         <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
                     </fa:ImageAwesome.Effect>
                 </fa:ImageAwesome>
             </Button>
-            <Button Height="60" Margin="0,0,0,0"  Background="Transparent" BorderBrush="Transparent">
-                <fa:ImageAwesome Icon="MousePointer" MouseEnter="Set_mouse_cursor" Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
+            <Button Height="60" Margin="0,0,0,0" Click="Set_mouse_cursor" Background="Transparent" BorderBrush="Transparent">
+                <fa:ImageAwesome Icon="MousePointer"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
                     <fa:ImageAwesome.Effect>
                         <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
                     </fa:ImageAwesome.Effect>
                 </fa:ImageAwesome>
             </Button>
         </StackPanel>
-        <DockPanel Width="150" Background="#FFCB9B9B" HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,50,20,20">
+        <DockPanel Width="150" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,50,20,20">
             <DockPanel.Effect>
                 <DropShadowEffect Direction="175" BlurRadius="10" ShadowDepth="3" Color="#FFDEB0B0"/>
             </DockPanel.Effect>
-            <Grid DockPanel.Dock="Top" Height="500" Background="#FFB45E5E">
+            
+            <Grid DockPanel.Dock="Top" x:Name="property_panel" Height="450" Background="#FF004D40">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+
+
 
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="延时" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="10.5,22.5,82.5,15" Width="57" Foreground="#DDFFF7F7"/>
-                <TextBox Grid.Row="0" Margin="72,3,16.5,18" Foreground="#DDFFF1F1" CaretBrush="#FF743FD3" SelectionBrush="#FF5F9BD6" BorderBrush="#897ADC75"></TextBox>
-                <TextBlock Grid.Row="1" Text="分组号" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="10.5,22.5,82.5,15" Width="57" Foreground="#DDFFF7F7"/>
-                <ComboBox HorizontalAlignment="Left"  Margin="80,15.64,0,0" Grid.Row="1" VerticalAlignment="Top" Width="37.5" Height="27.6">
-                </ComboBox>
-                <TextBlock Grid.Row="2" Text="坐标" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="10.5,22.5,97.5,15" Width="42" Foreground="#DDFFF7F7"/>
-                <TextBlock Grid.Row="2" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="50.5,23.5,84,14" Width="15.5" Foreground="#DDFFF7F7"><Run Text="X"/><Run Text=":"/></TextBlock>
-                <TextBlock Grid.Row="2" Name="xlabel" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="14" Margin="68.5,26.5,53.5,12" Width="28" Foreground="#DDFFF7F7" Text="——"/>
-                <TextBlock Grid.Row="2" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="99.5,23.5,35,14" Width="15.5" Foreground="#DDFFF7F7"><Run Text="Y"/><Run Text=":"/></TextBlock>
-                <TextBlock Grid.Row="2" x:Name="ylabel" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="14" Margin="116,26.5,6,12" Width="28" Foreground="#DDFFF7F7" Text="——"/>
-                <TextBlock Grid.Row="3" Text="装药状态" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="10.5,22.5,59.5,15" Width="80" Foreground="#DDFFF7F7"/>
-
-                <ToggleButton Grid.Row="3" IsChecked="True" Checked="set_bomb" Height="Auto" Margin="97.5,20.68,25.5,12.18" Width="Auto" Background="#FF5B5B5B">
-                    <ToggleButton.Style >
-                        <Style TargetType="ToggleButton" BasedOn="{StaticResource MaterialDesignFlatPrimaryToggleButton}">
-                            <Style.Triggers>
-                                <Trigger Property="IsChecked" Value="True">
-                                    <Setter Property="ToolTip" Value="已装药"></Setter>
-                                </Trigger>
-                                
-                            </Style.Triggers>
-                            <Setter Property="ToolTip" Value="未装药"></Setter>
-                        </Style>
-                    </ToggleButton.Style>
-                    <materialDesign:PackIcon Name="is_bomb" Kind="Close" Height="21" Width="21" Foreground="#FFBBB4CD">
-                    </materialDesign:PackIcon>
-                </ToggleButton>
+                <Button Grid.Row="0" Click="show_property" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" Background="{x:Null}" BorderBrush="{x:Null}">
+                    
+                    <materialDesign:PackIcon Kind="ArrowRight" Height="32.5" Width="41.5"></materialDesign:PackIcon>
+                </Button>
+                <TextBlock Grid.Row="1" Text="延时" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="10.5,22.5,82.5,15" Width="57" Foreground="#DDFFF7F7"/>
+                <TextBox Grid.Row="1" Margin="50.667,7.667,37.833,13.333" Foreground="#DDFFF1F1" CaretBrush="Black" SelectionBrush="Black" BorderBrush="#89FFFFFF"></TextBox>
+                <TextBlock Grid.Row="1" Text="s" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="115.167,25.833,6.499,11.667" Width="28.334" Foreground="#DDFFF7F7" RenderTransformOrigin="0.576,0.547"/>
+                <TextBlock Grid.Row="2" Text="分组号" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="10.5,22.5,82.5,15" Width="57" Foreground="#DDFFF7F7"/>
+                <TextBox Grid.Row="2" HorizontalAlignment="Left"  Margin="80,15.64,0,0"  VerticalAlignment="Top" Width="37.5" Height="27.6" BorderBrush="#89FFFFFF" SelectionBrush="Black" CaretBrush="Black">
+                </TextBox>
+                <TextBlock Grid.Row="3" Text="坐标" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="10.5,22.5,97.5,15" Width="42" Foreground="#DDFFF7F7"/>
+                <TextBlock Grid.Row="3" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="50.5,23.5,84,14" Width="15.5" Foreground="#DDFFF7F7"><Run Text="X"/><Run Text=":"/></TextBlock>
+                <TextBlock Grid.Row="3" x:Name="xlabel" TextAlignment="Center" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="14" Margin="68.499,26.834,51.334,18.666" Width="30.167" Foreground="#DDFFF7F7"/>
+                <TextBlock Grid.Row="3" x:Name="ylabel" TextAlignment="Center" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="14" Margin="117.166,26.834,2.667,18.666" Width="30.167" Foreground="#DDFFF7F7"/>
+                <TextBlock Grid.Row="3" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="99.5,23.5,35,14" Width="15.5" Foreground="#DDFFF7F7"><Run Text="Y"/><Run Text=":"/></TextBlock>
+                <TextBlock Grid.Row="4" Text="装药状态" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="10.5,22.5,59.5,15" Width="80" Foreground="#DDFFF7F7"/>
+                <CheckBox Grid.Row="4"  IsChecked="true" FontSize="16" Style="{StaticResource MaterialDesignActionDarkCheckBox}"  Margin="101,22,19,10.36" Height="28" Width="28" Background="#FF971313" BorderBrush="#FF7C7787" >
+                    <materialDesign:PackIcon Kind="Close"></materialDesign:PackIcon>
+                </CheckBox>
+                <TextBlock Grid.Row="5" Text="爆炸时间" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="10.5,22.5,59.5,15" Width="80" Foreground="#DDFFF7F7"/>
+                <TextBox Grid.Row="5"  HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="14" Margin="89.333,22.333,20,16.167" Width="40.667" Foreground="#DDFFF7F7" Background="{x:Null}" BorderBrush="#89FFFFFF" CaretBrush="Black" SelectionBrush="Black"/>
+                <TextBlock Grid.Row="5" Text="s" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="133.833,23.833,2.167,19" Width="14" Foreground="#DDFFF7F7"/>
+            
             </Grid>
         </DockPanel>
     </Grid>

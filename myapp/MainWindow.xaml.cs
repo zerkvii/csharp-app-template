@@ -47,6 +47,8 @@ namespace myapp
             InitializeComponent();
             is_max = false;
             //cursor_st = false;
+            ut = new Utils() { Kind_type = "Check" };
+            this.DataContext = ut;
         }
 
         private void drag(object sender, MouseButtonEventArgs e)
@@ -81,7 +83,7 @@ namespace myapp
 
         }
 
-        private void Set_cir_cursor(object sender, MouseEventArgs e)
+        private void Set_cir_cursor(object sender, RoutedEventArgs e)
         {
             //if (cursor_st == false)
             //{
@@ -97,13 +99,13 @@ namespace myapp
             //}
         }
 
-        private void Set_pen_cursor(object sender, MouseEventArgs e)
+        private void Set_pen_cursor(object sender, RoutedEventArgs e)
         {
             cur = cursorhelper.frombytearray(Properties.Resources.handwriting);
             this.Cursor = cur;
         }
 
-        private void Set_bomb_cursor(object sender, MouseEventArgs e)
+        private void Set_bomb_cursor(object sender, RoutedEventArgs e)
         {
 
             cur = cursorhelper.frombytearray(Properties.Resources.bomb);
@@ -111,29 +113,38 @@ namespace myapp
 
         }
 
-        private void Set_era_cursor(object sender, MouseEventArgs e)
+        private void Set_era_cursor(object sender, RoutedEventArgs e)
         {
 
             cur = cursorhelper.frombytearray(Properties.Resources.eraser);
             this.Cursor = cur;
         }
 
-        private void Set_cross_cursor(object sender, MouseEventArgs e)
+        private void Set_cross_cursor(object sender, RoutedEventArgs e)
         {
             cur = cursorhelper.frombytearray(Properties.Resources.cross);
             this.Cursor = cur;
         }
 
-        private void Set_mouse_cursor(object sender, MouseEventArgs e)
+        private void Set_mouse_cursor(object sender, RoutedEventArgs e)
         {
             cur = cursorhelper.frombytearray(Properties.Resources.normal_select_blue);
             this.Cursor = cur;
         }
 
-        private void set_bomb(object sender, RoutedEventArgs e)
+
+        private Utils ut;
+        private void set_bomb(object sender,  RoutedEventArgs e)
         {
-            this.is_bomb.Kind = PackIconKind.Check;
+            //ut.Kind_type = "Close";
         }
+
+        private void show_property(object sender, RoutedEventArgs e)
+        {
+            this.property_panel.Visibility = Visibility.Hidden;
+        }
+
+
         //public void init_cur()
         //{
         //    cur = cursorhelper.frombytearray(Properties.Resources.normal_select_blue);
