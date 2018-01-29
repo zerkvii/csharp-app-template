@@ -36,8 +36,8 @@
 
 
     <Grid>
-        <materialDesign:Card VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#FFE0F2F1" Margin="10,10,10,10"/>
-        <DockPanel Name="titlebar" MouseLeftButtonDown="drag" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="40" Background="#FF009688" Margin="20,10,20,0">
+        <materialDesign:Card VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#FFE0F2F1" Margin="10,10,10,10" Foreground="#DD705E5E"/>
+        <DockPanel Name="titlebar" MouseLeftButtonDown="drag" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="40" Background="#FF3A3A3A" Margin="20,10,20,0">
             <Border Background="Transparent" Cursor="Hand" MouseLeftButtonDown="close_wd" >
                 <materialDesign:PackIcon  Kind="Close" Width="30" Height="30" Margin="5,5,0,0"></materialDesign:PackIcon>
             </Border>
@@ -48,58 +48,58 @@
                 <materialDesign:PackIcon  Kind="WindowMinimize" Width="30" Height="30" Margin="5,5,0,0"></materialDesign:PackIcon>
             </Border>
         </DockPanel>
-        <StackPanel Name="leftbar" Background="#FF00796B" Width="60" Margin="20,50,0,20" HorizontalAlignment="Left" VerticalAlignment="Stretch"  >
-            <Button Height="60" Margin="0,0,0,0" Click="Set_cir_cursor" Background="Transparent" BorderBrush="Transparent">
-                <fa:ImageAwesome Icon="Circle"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF880E4F">
+        <StackPanel Name="leftbar" Background="#FFBCCDCB" Width="60" Margin="20,50,0,20" HorizontalAlignment="Left" VerticalAlignment="Stretch"  >
+            <Button ToolTip="打孔" Height="60" Margin="0,0,0,0" Click="Set_cir_cursor" Background="Transparent" BorderBrush="Transparent" Foreground="#FF01579B">
+                <fa:ImageAwesome Icon="Circle"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF01579B">
                     <fa:ImageAwesome.Effect>
                         <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
                     </fa:ImageAwesome.Effect>
                 </fa:ImageAwesome>
             </Button>
-            <Button Height="60" Margin="0,0,0,0" Click="Set_pen_cursor" Background="Transparent" BorderBrush="Transparent">
-                <fa:ImageAwesome Icon="PencilSquareOutline"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF009688">
+            <Button ToolTip="标注" Height="60" Margin="0,0,0,0" Click="Set_pen_cursor" Background="Transparent" BorderBrush="Transparent">
+                <fa:ImageAwesome Icon="PencilSquareOutline"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF4A148C">
                     <fa:ImageAwesome.Effect>
                         <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
                     </fa:ImageAwesome.Effect>
                 </fa:ImageAwesome>
             </Button>
-            <Button Height="60" Margin="0,0,0,0" Click="Set_bomb_cursor" Background="Transparent" BorderBrush="Transparent">
-                <fa:ImageAwesome Icon="Bomb"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF0A0C0B">
+            <Button ToolTip="装药" Height="60" Margin="0,0,0,0" Click="Set_bomb_cursor" Background="Transparent" BorderBrush="Transparent">
+                <fa:ImageAwesome Icon="Bomb"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FFB71C1C">
                     <fa:ImageAwesome.Effect>
                         <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
                     </fa:ImageAwesome.Effect>
                 </fa:ImageAwesome>
             </Button>
-            <Button Height="60" Margin="0,0,0,0" Click="Set_era_cursor"  Background="Transparent" BorderBrush="Transparent">
-                <fa:ImageAwesome Icon="Eraser"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF2C442D">
+            <Button ToolTip="移除" Height="60" Margin="0,0,0,0" Click="Set_era_cursor"  Background="Transparent" BorderBrush="Transparent">
+                <fa:ImageAwesome Icon="Eraser"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF33691E">
                     <fa:ImageAwesome.Effect>
                         <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
                     </fa:ImageAwesome.Effect>
                 </fa:ImageAwesome>
             </Button>
-            <Button Height="60" Margin="0,0,0,0" Click="Set_cross_cursor" Background="Transparent" BorderBrush="Transparent">
-                <fa:ImageAwesome Icon="Plus"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
+            <Button ToolTip="分组扩大" Height="60" Margin="0,0,0,0" Click="Set_cross_cursor" Background="Transparent" BorderBrush="Transparent" Foreground="#FFFF6F00">
+                <fa:ImageAwesome Icon="Plus"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FFFF6F00">
                     <fa:ImageAwesome.Effect>
                         <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
                     </fa:ImageAwesome.Effect>
                 </fa:ImageAwesome>
             </Button>
-            <Button Height="60" Margin="0,0,0,0" Click="Set_cross_cursor" Background="Transparent" BorderBrush="Transparent">
-                <fa:ImageAwesome Icon="Times"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
+            <Button ToolTip="分组交叉" Height="60" Margin="0,0,0,0" Click="Set_cross_cursor" Background="Transparent" BorderBrush="Transparent">
+                <fa:ImageAwesome Icon="Times"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FFE65100">
                     <fa:ImageAwesome.Effect>
                         <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
                     </fa:ImageAwesome.Effect>
                 </fa:ImageAwesome>
             </Button>
-            <Button Height="60" Margin="0,0,0,0" Click="Set_cross_cursor" Background="Transparent" BorderBrush="Transparent">
-                <fa:ImageAwesome Icon="Minus"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
+            <Button ToolTip="分组移除" Height="60" Margin="0,0,0,0" Click="Set_cross_cursor" Background="Transparent" BorderBrush="Transparent">
+                <fa:ImageAwesome Icon="Minus"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FFBF360C">
                     <fa:ImageAwesome.Effect>
                         <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
                     </fa:ImageAwesome.Effect>
                 </fa:ImageAwesome>
             </Button>
-            <Button Height="60" Margin="0,0,0,0" Click="Set_mouse_cursor" Background="Transparent" BorderBrush="Transparent">
-                <fa:ImageAwesome Icon="MousePointer"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF252525">
+            <Button ToolTip="移动" Height="60" Margin="0,0,0,0" Click="Set_mouse_cursor" Background="Transparent" BorderBrush="Transparent">
+                <fa:ImageAwesome Icon="MousePointer"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF212121">
                     <fa:ImageAwesome.Effect>
                         <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
                     </fa:ImageAwesome.Effect>
@@ -111,7 +111,7 @@
                 <DropShadowEffect Direction="175" BlurRadius="10" ShadowDepth="3" Color="#FFDEB0B0"/>
             </DockPanel.Effect>
             
-            <Grid DockPanel.Dock="Top" x:Name="property_panel" Height="450" Background="#FF004D40">
+            <Grid DockPanel.Dock="Top" x:Name="property_panel" Height="450" Background="#FF784D4D">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>

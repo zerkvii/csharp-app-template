@@ -49,6 +49,8 @@ namespace myapp
             //cursor_st = false;
             ut = new Utils() { Kind_type = "Check" };
             this.DataContext = ut;
+            //属性栏影藏
+            this.property_panel.Visibility = Visibility.Hidden;
         }
 
         private void drag(object sender, MouseButtonEventArgs e)
