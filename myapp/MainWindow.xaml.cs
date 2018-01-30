@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 using MaterialDesignThemes.Wpf;
+using System.Reflection;
 
 namespace myapp
 {
@@ -23,6 +24,21 @@ namespace myapp
     public partial class MainWindow : Window
     {
         public Boolean is_max { set; get; }
+        
+        //private class cursor_types
+        //{
+        //    Boolean Hole { get; set; }
+        //    Boolean Bomb_s { get; set; }
+        //    Boolean Bomb_a{ get; set; }
+        //    Boolean Draft { get; set; }
+        //    Boolean Eraser { get; set; }
+        //    Boolean Gp { get; set; }
+        //    Boolean Gx { get; set; }
+        //    Boolean Gm { get; set; }
+        //    Boolean Move { get; set; }
+
+        //}
+        public Cursors_type cty { get; set; } 
 
         //public Boolean cursor_st { set; get; }
         public sealed class cursorhelper
@@ -49,8 +65,10 @@ namespace myapp
             //cursor_st = false;
             ut = new Utils() { Kind_type = "Check" };
             this.DataContext = ut;
-            //属性栏影藏
-            this.property_panel.Visibility = Visibility.Hidden;
+            //鼠标标记初始化
+            cty = new Cursors_type();
+            //属性栏隐藏
+            //this.property_panel.Visibility = Visibility.Hidden;
         }
 
         private void drag(object sender, MouseButtonEventArgs e)
@@ -91,6 +109,10 @@ namespace myapp
             //{
             cur = cursorhelper.frombytearray(Properties.Resources.circ);
             this.Cursor = cur;
+            foreach(PropertyInfo p in cty.GetType().GetProperties())
+            {
+                
+            }
             //change_cur_sta();
             //}
             //    else
@@ -146,6 +168,97 @@ namespace myapp
             this.property_panel.Visibility = Visibility.Hidden;
         }
 
+        private void ShowGridlines_OnChecked(object sender, RoutedEventArgs e)
+        {
+            DrawGraph((int)slidval.Value, (int)slidval.Value, ShapeCanvas);
+            slidval.IsEnabled = true;
+        }
+
+        private void ShowGridlines_OnUnchecked(object sender, RoutedEventArgs e)
+        {
+            RemoveGraph(ShapeCanvas);
+            slidval.IsEnabled = false;
+        }
+
+        private void SliderValue_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (ShowGridlines.IsChecked ?? false)
+            {
+                //DrawGraph((int)SliderValue.Value, (int)SliderValue.Value, ShapeCanvas);
+                DrawGraph((int)slidval.Value, (int)slidval.Value, ShapeCanvas);
+
+            }
+        }
+
+        Brush _color1 = Brushes.Brown;
+        Brush _color2 = Brushes.Cyan;
+        private void DrawGraph(int yoffSet, int xoffSet, Canvas mainCanvas)
+        {
+            RemoveGraph(mainCanvas);
+            Image lines = new Image();
+            lines.SetValue(Panel.ZIndexProperty, -100);
+            //Draw the grid
+            DrawingVisual gridLinesVisual = new DrawingVisual();
+            DrawingContext dct = gridLinesVisual.RenderOpen();
+            Pen lightPen = new Pen(_color1, 0.5), darkPen = new Pen(_color2, 1);
+            lightPen.Freeze();
+            darkPen.Freeze();
+
+            int yOffset = yoffSet,
+                xOffset = xoffSet,
+                rows = (int)(this.main_canvas.ActualHeight),
+                columns = (int)(this.main_canvas.ActualWidth),
+                alternate = yOffset == 5 ? yOffset : 1,
+                j = 0;
+
+            //Draw the horizontal lines
+            Point x = new Point(0, 0.5);
+            Point y = new Point(this.main_canvas.ActualWidth, 0.5);
+
+            for (int i = 0; i <= rows; i++, j++)
+            {
+                dct.DrawLine(j % alternate == 0 ? lightPen : darkPen, x, y);
+                x.Offset(0, yOffset);
+                y.Offset(0, yOffset);
+            }
+            j = 0;
+            //Draw the vertical lines
+            x = new Point(0.5, 0);
+            y = new Point(0.5, this.main_canvas.ActualHeight);
+
+            for (int i = 0; i <= columns; i++, j++)
+            {
+                dct.DrawLine(j % alternate == 0 ? lightPen : darkPen, x, y);
+                x.Offset(xOffset, 0);
+                y.Offset(xOffset, 0);
+            }
+            dct.Close();
+            this.test_label.Text = this.main_canvas.ActualHeight.ToString();
+            RenderTargetBitmap bmp = new RenderTargetBitmap((int)this.main_canvas.ActualWidth,
+                (int)this.main_canvas.ActualHeight-60, 96, 96, PixelFormats.Pbgra32);
+            bmp.Render(gridLinesVisual);
+            bmp.Freeze();
+            lines.Source = bmp;
+
+            mainCanvas.Children.Add(lines);
+        }
+
+        private void RemoveGraph(Canvas mainCanvas)
+        {
+            foreach (UIElement obj in mainCanvas.Children)
+            {
+                if (obj is Image)
+                {
+                    mainCanvas.Children.Remove(obj);
+                    break;
+                }
+            }
+        }
+
+        private void cursor_event_handlers(object sender, MouseButtonEventArgs e)
+        {
+            
+        }
 
         //public void init_cur()
         //{
