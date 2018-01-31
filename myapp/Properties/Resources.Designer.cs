@@ -93,6 +93,16 @@ namespace myapp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        public static byte[] bomb_a {
+            get {
+                object obj = ResourceManager.GetObject("bomb_a", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         public static byte[] circ {
             get {
                 object obj = ResourceManager.GetObject("circ", resourceCulture);

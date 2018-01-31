@@ -73,7 +73,6 @@ namespace myapp
 
         private void drag(object sender, MouseButtonEventArgs e)
         {
-
             this.DragMove();
         }
 
@@ -103,16 +102,30 @@ namespace myapp
 
         }
 
+        //设置鼠标类型代理
+        private bool Cur_rep(String name)
+        {
+            foreach (PropertyInfo p in cty.GetType().GetProperties())
+            {
+                if (p.Name.Equals(name))
+                {
+                    this.test_label.Text = name;
+                    p.SetValue(cty, true, null);
+                    return true;
+                }
+                else
+                    p.SetValue(cty, false, null);
+            }
+            return false;
+        }
+
         private void Set_cir_cursor(object sender, RoutedEventArgs e)
         {
             //if (cursor_st == false)
             //{
             cur = cursorhelper.frombytearray(Properties.Resources.circ);
             this.Cursor = cur;
-            foreach(PropertyInfo p in cty.GetType().GetProperties())
-            {
-                
-            }
+            if (Cur_rep("Hole")) this.test_label.Text = "打孔";
             //change_cur_sta();
             //}
             //    else
@@ -127,41 +140,60 @@ namespace myapp
         {
             cur = cursorhelper.frombytearray(Properties.Resources.handwriting);
             this.Cursor = cur;
+            if (Cur_rep("Draft")) this.test_label.Text = "备注";
         }
 
         private void Set_bomb_cursor(object sender, RoutedEventArgs e)
         {
-
             cur = cursorhelper.frombytearray(Properties.Resources.bomb);
             this.Cursor = cur;
+            if (Cur_rep("Bomb_s")) this.test_label.Text = "连续装药";
+        }
 
+        private void Set_bomba_cursor(object sender, RoutedEventArgs e)
+        {
+            cur = cursorhelper.frombytearray(Properties.Resources.bomb_a);
+            this.Cursor = cur;
+            if (Cur_rep("Bomb_a")) this.test_label.Text = "空气炸药";
         }
 
         private void Set_era_cursor(object sender, RoutedEventArgs e)
         {
-
             cur = cursorhelper.frombytearray(Properties.Resources.eraser);
             this.Cursor = cur;
+            if (Cur_rep("Eraser")) this.test_label.Text = "橡皮擦";
         }
 
-        private void Set_cross_cursor(object sender, RoutedEventArgs e)
+        private void Set_crossp_cursor(object sender, RoutedEventArgs e)
         {
             cur = cursorhelper.frombytearray(Properties.Resources.cross);
             this.Cursor = cur;
+            if (Cur_rep("Gp")) this.test_label.Text = "分组添加";
+        }
+
+        private void Set_crossm_cursor(object sender, RoutedEventArgs e)
+        {
+            cur = cursorhelper.frombytearray(Properties.Resources.cross);
+            this.Cursor = cur;
+            if (Cur_rep("Gx")) this.test_label.Text = "分组交叉";
+        }
+
+        private void Set_crossl_cursor(object sender, RoutedEventArgs e)
+        {
+            cur = cursorhelper.frombytearray(Properties.Resources.cross);
+            this.Cursor = cur;
+            if (Cur_rep("Gm")) this.test_label.Text = "分组移除";
         }
 
         private void Set_mouse_cursor(object sender, RoutedEventArgs e)
         {
             cur = cursorhelper.frombytearray(Properties.Resources.normal_select_blue);
             this.Cursor = cur;
-        }
+            if (Cur_rep("Move")) this.test_label.Text = "移动";
 
+        }
 
         private Utils ut;
-        private void set_bomb(object sender,  RoutedEventArgs e)
-        {
-            //ut.Kind_type = "Close";
-        }
 
         private void show_property(object sender, RoutedEventArgs e)
         {
@@ -186,7 +218,6 @@ namespace myapp
             {
                 //DrawGraph((int)SliderValue.Value, (int)SliderValue.Value, ShapeCanvas);
                 DrawGraph((int)slidval.Value, (int)slidval.Value, ShapeCanvas);
-
             }
         }
 
@@ -223,7 +254,9 @@ namespace myapp
             }
             j = 0;
             //Draw the vertical lines
+
             x = new Point(0.5, 0);
+
             y = new Point(0.5, this.main_canvas.ActualHeight);
 
             for (int i = 0; i <= columns; i++, j++)
@@ -235,7 +268,7 @@ namespace myapp
             dct.Close();
             this.test_label.Text = this.main_canvas.ActualHeight.ToString();
             RenderTargetBitmap bmp = new RenderTargetBitmap((int)this.main_canvas.ActualWidth,
-                (int)this.main_canvas.ActualHeight-60, 96, 96, PixelFormats.Pbgra32);
+                (int)this.main_canvas.ActualHeight-50, 96, 96, PixelFormats.Pbgra32);
             bmp.Render(gridLinesVisual);
             bmp.Freeze();
             lines.Source = bmp;
@@ -257,7 +290,7 @@ namespace myapp
 
         private void cursor_event_handlers(object sender, MouseButtonEventArgs e)
         {
-            
+               
         }
 
         //public void init_cur()
