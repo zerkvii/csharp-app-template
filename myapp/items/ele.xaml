@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="myapp.items.ele"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:myapp.items"
+             mc:Ignorable="d" 
+             d:DesignHeight="20" d:DesignWidth="20" Background="Transparent">
+    <Grid>
+        <Ellipse>
+          
+        </Ellipse>
+        <Ellipse Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="13.167" Margin="2.5,2.666,0,0" Stroke="Black" VerticalAlignment="Top" Width="13.167"/>
+    </Grid>
+</UserControl>

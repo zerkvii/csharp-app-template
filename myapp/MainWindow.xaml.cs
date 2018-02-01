@@ -63,12 +63,13 @@ namespace myapp
             InitializeComponent();
             is_max = false;
             //cursor_st = false;
-            ut = new Utils() { Kind_type = "Check" };
+            ut = new Utils() { Kind_type = "Play",P_index="3" };
             this.DataContext = ut;
             //鼠标标记初始化
             cty = new Cursors_type();
             //属性栏隐藏
-            //this.property_panel.Visibility = Visibility.Hidden;
+            this.property_panel.Visibility = Visibility.Visible;
+            init_canvas_tunnel();
         }
 
         private void drag(object sender, MouseButtonEventArgs e)
@@ -192,24 +193,37 @@ namespace myapp
             if (Cur_rep("Move")) this.test_label.Text = "移动";
 
         }
-
+        //icon更改
         private Utils ut;
+        private void _pause(object sender, RoutedEventArgs e)
+        {
+            ut.Kind_type = ut.Kind_type.ToString().Equals("Play") ? "Pause" : "Play";
+            this.test_label.Text = ut.Kind_type.ToString();
+        }
 
+        private void _refresh(object sender, RoutedEventArgs e)
+        {
+          
+        }
+        private void _delete(object sender, RoutedEventArgs e)
+        {
+
+        }
         private void show_property(object sender, RoutedEventArgs e)
         {
             this.property_panel.Visibility = Visibility.Hidden;
+            ut.P_index = "1";
+
         }
 
         private void ShowGridlines_OnChecked(object sender, RoutedEventArgs e)
         {
             DrawGraph((int)slidval.Value, (int)slidval.Value, ShapeCanvas);
-            slidval.IsEnabled = true;
         }
 
         private void ShowGridlines_OnUnchecked(object sender, RoutedEventArgs e)
         {
             RemoveGraph(ShapeCanvas);
-            slidval.IsEnabled = false;
         }
 
         private void SliderValue_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -221,13 +235,14 @@ namespace myapp
             }
         }
 
-        Brush _color1 = Brushes.Brown;
-        Brush _color2 = Brushes.Cyan;
+        Brush _color1 = Brushes.Black;
+        Brush _color2 = Brushes.Gray;
         private void DrawGraph(int yoffSet, int xoffSet, Canvas mainCanvas)
         {
             RemoveGraph(mainCanvas);
             Image lines = new Image();
             lines.SetValue(Panel.ZIndexProperty, -100);
+            this.test_label.Text = Panel.ZIndexProperty.ToString();
             //Draw the grid
             DrawingVisual gridLinesVisual = new DrawingVisual();
             DrawingContext dct = gridLinesVisual.RenderOpen();
@@ -266,16 +281,24 @@ namespace myapp
                 y.Offset(xOffset, 0);
             }
             dct.Close();
-            this.test_label.Text = this.main_canvas.ActualHeight.ToString();
+            //this.test_label.Text = this.main_canvas.ActualHeight.ToString();
             RenderTargetBitmap bmp = new RenderTargetBitmap((int)this.main_canvas.ActualWidth,
                 (int)this.main_canvas.ActualHeight-50, 96, 96, PixelFormats.Pbgra32);
             bmp.Render(gridLinesVisual);
             bmp.Freeze();
             lines.Source = bmp;
-
+            lines.Opacity = 0.5;
             mainCanvas.Children.Add(lines);
+            Canvas.SetZIndex(lines, 4);
+          
+
         }
 
+        //设置涵洞模型
+        private void init_canvas_tunnel()
+        {
+
+        }
         private void RemoveGraph(Canvas mainCanvas)
         {
             foreach (UIElement obj in mainCanvas.Children)
@@ -292,6 +315,8 @@ namespace myapp
         {
                
         }
+
+      
 
         //public void init_cur()
         //{

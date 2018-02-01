@@ -24,6 +24,22 @@ namespace myapp
             }
         }
 
+        private String p_index;
+        public String P_index
+        {
+            get { return p_index; }
+            set
+            {
+                if (value != p_index)
+                {
+                    p_index = value;
+                    Notify("P_index");
+                }
+            }
+        }
+
+
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void Notify(string propertyName)
         {
