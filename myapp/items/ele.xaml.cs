@@ -20,9 +20,24 @@ namespace myapp.items
     /// </summary>
     public partial class ele : UserControl
     {
-        public ele()
+
+        public double x_label { get; set; }
+        public double y_label { get; set; }
+        public int delay { get; set; }
+        public int color { get; set; }
+        public ele(Point p_)
         {
             InitializeComponent();
+            this.color = 0;
+            this.delay = 2;
+           
         }
+    
+   
+        public void change_color(Color color)
+        {
+            this.el1.Fill = new SolidColorBrush(color);
+        }
+
     }
 }

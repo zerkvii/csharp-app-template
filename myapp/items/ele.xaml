@@ -3,13 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:myapp.items"
-             mc:Ignorable="d" 
-             d:DesignHeight="20" d:DesignWidth="20" Background="Transparent">
+             mc:Ignorable="d"
+             d:DesignHeight="50" d:DesignWidth="50">
     <Grid>
-        <Ellipse>
-          
-        </Ellipse>
-        <Ellipse Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="13.167" Margin="2.5,2.666,0,0" Stroke="Black" VerticalAlignment="Top" Width="13.167"/>
+        <TextBox Visibility="Hidden" x:Name="mark" Height="21.167" Margin="1,29,0,-0.167" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="10" Foreground="#FF0C0C0C"/>
+        <Ellipse x:Name="el1" Margin="7,2,7,12" Fill="#FF7F7F7F" />
+        <Ellipse x:Name="el2" Margin="10,5,10,15" Fill="White" />
+        <Ellipse x:Name="el3" Margin="15.333,10.333,15.333,20.333" Fill="White" />
     </Grid>
 </UserControl>
+

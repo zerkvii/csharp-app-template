@@ -65,17 +65,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Cursors_type.cs" />
-    <Compile Include="items\cir.xaml.cs">
-      <DependentUpon>cir.xaml</DependentUpon>
-    </Compile>
     <Compile Include="items\ele.xaml.cs">
       <DependentUpon>ele.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils.cs" />
-    <Page Include="items\cir.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="items\ele.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -168,6 +161,24 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="tunn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\safe.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bombs.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bomba.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="safe.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bombs.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bomba.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -101,6 +101,26 @@ namespace myapp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap bomba {
+            get {
+                object obj = ResourceManager.GetObject("bomba", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap bombs {
+            get {
+                object obj = ResourceManager.GetObject("bombs", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         public static byte[] circ {
@@ -157,6 +177,16 @@ namespace myapp.Properties {
             get {
                 object obj = ResourceManager.GetObject("normal_select_blue", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap safe {
+            get {
+                object obj = ResourceManager.GetObject("safe", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

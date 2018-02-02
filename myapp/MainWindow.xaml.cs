@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.IO;
 using MaterialDesignThemes.Wpf;
 using System.Reflection;
+using myapp.items;
 
 namespace myapp
 {
@@ -313,10 +314,84 @@ namespace myapp
 
         private void cursor_event_handlers(object sender, MouseButtonEventArgs e)
         {
-               
+            if (cty.Hole) create_hole(e);
+   
         }
 
-      
+        protected bool isDragging;
+        private Point clickPosition;
+        private void create_hole(MouseButtonEventArgs e)
+        {
+            Point p = Mouse.GetPosition(this.ShapeCanvas);
+            ele c = new ele(p) { Width = 40, Height = 40 };
+            c.MouseLeftButtonDown += new MouseButtonEventHandler(ele_copes);
+            c.MouseLeftButtonUp += new MouseButtonEventHandler(ele_copes_ad);
+            c.MouseMove += new MouseEventHandler(ele_move);
+            c.MouseRightButtonDown += new MouseButtonEventHandler(show_prop);
+            ShapeCanvas.Children.Add(c);
+            Canvas.SetLeft(c, e.GetPosition(this.ShapeCanvas).X-19);
+            Canvas.SetTop(c, e.GetPosition(this.ShapeCanvas).Y-15);
+            Canvas.SetZIndex(c, 5);
+        }
+        private void ele_copes(object sender, MouseButtonEventArgs e)
+        {
+            if (cty.Bomb_s)
+            {
+                ele c = (ele)sender;
+                c.el2.Fill = new SolidColorBrush(Color.FromRgb(95, 95, 95));
+                c.el3.Fill = new SolidColorBrush(Color.FromRgb(95, 95, 95));
+
+            }else if (cty.Bomb_a)
+            {
+                ele c = (ele)sender;
+                c.el2.Fill = new SolidColorBrush(Color.FromRgb(95, 95, 95));
+                c.el3.Fill = new SolidColorBrush(Color.FromRgb(172, 172, 172));
+            }
+            else if (cty.Move)
+            {
+                isDragging = true;
+                ele c = (ele)sender;
+                clickPosition = e.GetPosition(this);
+                c.CaptureMouse();
+            }
+
+        }
+
+        private void ele_copes_ad(object sender,MouseButtonEventArgs e)
+        {
+            if (cty.Move)
+            {
+                isDragging = false;
+                var c = sender as ele;
+                c.ReleaseMouseCapture();
+            }
+        }
+
+        private void ele_move(object sender,MouseEventArgs e)
+        {
+            if (cty.Move)
+            {
+                var c = sender as ele;
+                if (isDragging && c != null)
+                {
+                    Point curp = e.GetPosition(this.Parent as UIElement);
+                    var trf = c.RenderTransform as TranslateTransform;
+                    if (trf == null)
+                    {
+                        trf = new TranslateTransform();
+                        c.RenderTransform = trf;
+                    }
+                    trf.X = curp.X - clickPosition.X;
+                    trf.Y = curp.Y - clickPosition.Y;
+                }
+            }
+        }
+
+        private void show_prop(object sender, MouseEventArgs e)
+        {
+
+        }
+
 
         //public void init_cur()
         //{

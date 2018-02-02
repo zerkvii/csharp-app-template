@@ -6,6 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns:local="clr-namespace:myapp"
+        
         mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -48,15 +49,19 @@
                     <CheckBox Grid.Row="0" IsChecked="False" IsEnabled="True" Content="" x:Name="ShowGridlines"  Checked="ShowGridlines_OnChecked" Unchecked="ShowGridlines_OnUnchecked" HorizontalAlignment="Left" Margin="116,14.85,0,0" VerticalAlignment="Top"/>
                     <Slider Width="235" x:Name="slidval" Minimum="10" Maximum="100" ValueChanged="SliderValue_OnValueChanged" HorizontalAlignment="Left" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True"  Margin="355,14.85,0,0" VerticalAlignment="Top" Foreground="#FFC3C3B9"/>
                 </Grid>
-                <Canvas  MouseLeftButtonDown="cursor_event_handlers" x:Name="ShapeCanvas" Background="#FFC3C3C3">
+                <Canvas DockPanel.Dock="Top" MouseLeftButtonDown="cursor_event_handlers" x:Name="ShapeCanvas" Background="#FFC3C3C3">
                     <Rectangle Panel.ZIndex="3" Height="379.64" Width="372"  Canvas.Top="55.5" Canvas.Left="39">
                         <Rectangle.Fill>
                             <ImageBrush ImageSource="tunn.png">
                             </ImageBrush>
                         </Rectangle.Fill>
                     </Rectangle>
-                    <StackPanel Height="300" Canvas.Right="20" Canvas.Top="70" Width="150" Background="#FFFFF0F0">
-                        
+                    <StackPanel Panel.ZIndex="5" Height="300" Canvas.Right="20" Canvas.Top="103.14" Width="150" >
+                        <Image ToolTip="未装药状态" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" Height="100" Source="safe.png">
+                           
+                        </Image>
+                        <Image ToolTip="连续装药" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" Height="100" Source="bombs.png"/>
+                        <Image ToolTip="空气装药" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" Height="100" Source="bomba.png"/>
                     </StackPanel>
                 </Canvas>
             </DockPanel>
@@ -176,12 +181,10 @@
                 <TextBlock Grid.Row="5" Text="爆炸时间" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="10.5,22.5,59.5,15" Width="80" Foreground="#DDFFF7F7"/>
                 <TextBox Grid.Row="5"  HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="14" Margin="89.333,22.333,20,16.167" Width="40.667" Foreground="#DDFFF7F7" Background="{x:Null}" BorderBrush="#89FFFFFF" CaretBrush="Black" SelectionBrush="Black"/>
                 <TextBlock Grid.Row="5" Text="s" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="133.833,23.833,2.167,19" Width="14" Foreground="#DDFFF7F7"/>
-
             </Grid>
         </DockPanel>
         <Grid Panel.ZIndex="2" HorizontalAlignment="Right"  VerticalAlignment="Stretch" Width="120" Margin="50,140,40,60">
-            <TextBox HorizontalAlignment="Left" Height="38"   materialDesign:HintAssist.IsFloating="True" materialDesign:HintAssist.HintOpacity="0.9" Margin="10,10,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="预定起爆时间" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.698,0.87" FontSize="14" FontFamily="Microsoft YaHei UI Light" BorderBrush="#89000000" CaretBrush="Black" SelectionBrush="Black"/>
-
+            <TextBox HorizontalAlignment="Left" Height="48"   materialDesign:HintAssist.IsFloating="True" materialDesign:HintAssist.HintOpacity="0.9" Margin="10,10,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="起爆时间" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.698,0.87" FontSize="18" FontFamily="Microsoft YaHei UI Light" BorderBrush="#89000000" CaretBrush="Black" SelectionBrush="Black" Background="{x:Null}"/>
             <Button ToolTip="启动/暂停" Click="_pause" Style="{StaticResource MaterialDesignFloatingActionButton}" Background="#FF00AEFF" BorderBrush="{x:Null}" Foreground="#DDFFFFFF" Margin="30,85,34,259">
                 <materialDesign:PackIcon Kind="{Binding Kind_type}" Width="30" Height="30"/>
             </Button>
