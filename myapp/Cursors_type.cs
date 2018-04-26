@@ -9,6 +9,7 @@ namespace myapp
    public class Cursors_type
     {
         public Boolean Hole { get; set; }
+
         public Boolean Bomb_s { get; set; }
         public Boolean Bomb_a { get; set; }
         public Boolean Draft { get; set; }
@@ -29,6 +30,14 @@ namespace myapp
             Gx = false;
             Gm = false;
             Move = false;
+        }
+        public void set_attr_val(String attr)
+        {
+            foreach(System.Reflection.PropertyInfo p in this.GetType().GetProperties())
+            {
+                if (p.Name != attr) p.SetValue(this, false);
+                else p.SetValue(this,true);
+            }
         }
     }
 }

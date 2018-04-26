@@ -25,7 +25,7 @@ namespace myapp
     public partial class MainWindow : Window
     {
         public Boolean is_max { set; get; }
-        
+
         //private class cursor_types
         //{
         //    Boolean Hole { get; set; }
@@ -39,7 +39,7 @@ namespace myapp
         //    Boolean Move { get; set; }
 
         //}
-        public Cursors_type cty { get; set; } 
+        public Cursors_type cty { get; set; }
 
         //public Boolean cursor_st { set; get; }
         public sealed class cursorhelper
@@ -55,7 +55,7 @@ namespace myapp
 
         }
         public Cursor cur { set; get; }
-     
+
         public MainWindow()
 
         {
@@ -64,7 +64,7 @@ namespace myapp
             InitializeComponent();
             is_max = false;
             //cursor_st = false;
-            ut = new Utils() { Kind_type = "Play",P_index="3" };
+            ut = new Utils() { Kind_type = "Play", P_index = "3" };
             this.DataContext = ut;
             //鼠标标记初始化
             cty = new Cursors_type();
@@ -128,6 +128,7 @@ namespace myapp
             cur = cursorhelper.frombytearray(Properties.Resources.circ);
             this.Cursor = cur;
             if (Cur_rep("Hole")) this.test_label.Text = "打孔";
+            cty.set_attr_val("Hole");
             //change_cur_sta();
             //}
             //    else
@@ -143,6 +144,7 @@ namespace myapp
             cur = cursorhelper.frombytearray(Properties.Resources.handwriting);
             this.Cursor = cur;
             if (Cur_rep("Draft")) this.test_label.Text = "备注";
+            cty.set_attr_val("Draft");
         }
 
         private void Set_bomb_cursor(object sender, RoutedEventArgs e)
@@ -150,6 +152,7 @@ namespace myapp
             cur = cursorhelper.frombytearray(Properties.Resources.bomb);
             this.Cursor = cur;
             if (Cur_rep("Bomb_s")) this.test_label.Text = "连续装药";
+            cty.set_attr_val("Bomb_s");
         }
 
         private void Set_bomba_cursor(object sender, RoutedEventArgs e)
@@ -157,6 +160,7 @@ namespace myapp
             cur = cursorhelper.frombytearray(Properties.Resources.bomb_a);
             this.Cursor = cur;
             if (Cur_rep("Bomb_a")) this.test_label.Text = "空气炸药";
+            cty.set_attr_val("Bomb_a");
         }
 
         private void Set_era_cursor(object sender, RoutedEventArgs e)
@@ -164,6 +168,7 @@ namespace myapp
             cur = cursorhelper.frombytearray(Properties.Resources.eraser);
             this.Cursor = cur;
             if (Cur_rep("Eraser")) this.test_label.Text = "橡皮擦";
+            cty.set_attr_val("Eraser");
         }
 
         private void Set_crossp_cursor(object sender, RoutedEventArgs e)
@@ -171,6 +176,7 @@ namespace myapp
             cur = cursorhelper.frombytearray(Properties.Resources.cross);
             this.Cursor = cur;
             if (Cur_rep("Gp")) this.test_label.Text = "分组添加";
+            cty.set_attr_val("Gp");
         }
 
         private void Set_crossm_cursor(object sender, RoutedEventArgs e)
@@ -178,6 +184,7 @@ namespace myapp
             cur = cursorhelper.frombytearray(Properties.Resources.cross);
             this.Cursor = cur;
             if (Cur_rep("Gx")) this.test_label.Text = "分组交叉";
+            cty.set_attr_val("Gx");
         }
 
         private void Set_crossl_cursor(object sender, RoutedEventArgs e)
@@ -185,6 +192,7 @@ namespace myapp
             cur = cursorhelper.frombytearray(Properties.Resources.cross);
             this.Cursor = cur;
             if (Cur_rep("Gm")) this.test_label.Text = "分组移除";
+            cty.set_attr_val("Gm");
         }
 
         private void Set_mouse_cursor(object sender, RoutedEventArgs e)
@@ -192,6 +200,7 @@ namespace myapp
             cur = cursorhelper.frombytearray(Properties.Resources.normal_select_blue);
             this.Cursor = cur;
             if (Cur_rep("Move")) this.test_label.Text = "移动";
+            cty.set_attr_val("Move");
 
         }
         //icon更改
@@ -204,11 +213,25 @@ namespace myapp
 
         private void _refresh(object sender, RoutedEventArgs e)
         {
-          
+
         }
         private void _delete(object sender, RoutedEventArgs e)
         {
-
+            UIElement el = null;
+            for (int index = this.ShapeCanvas.Children.Count - 1; index >= 0; index--)
+                if ((el = this.ShapeCanvas.Children[index]) is ele)
+                    this.ShapeCanvas.Children.Remove(el);
+            //this.ShapeCanvas.Children.Clear();
+            //var children= from UIElement c in ShapeCanvas.Children where c is ele select c;
+            // foreach(UIElement u in children)
+            // {
+            //     ShapeCanvas.Children.Remove(u);
+            //     //break;
+            // }
+            //foreach (UIElement obj in this.ShapeCanvas.Children)
+            //{
+            //    if (obj is ele) this.ShapeCanvas.Children.Remove(obj);
+            //}
         }
         private void show_property(object sender, RoutedEventArgs e)
         {
@@ -284,14 +307,14 @@ namespace myapp
             dct.Close();
             //this.test_label.Text = this.main_canvas.ActualHeight.ToString();
             RenderTargetBitmap bmp = new RenderTargetBitmap((int)this.main_canvas.ActualWidth,
-                (int)this.main_canvas.ActualHeight-50, 96, 96, PixelFormats.Pbgra32);
+                (int)this.main_canvas.ActualHeight - 50, 96, 96, PixelFormats.Pbgra32);
             bmp.Render(gridLinesVisual);
             bmp.Freeze();
             lines.Source = bmp;
             lines.Opacity = 0.5;
             mainCanvas.Children.Add(lines);
             Canvas.SetZIndex(lines, 4);
-          
+
 
         }
 
@@ -315,11 +338,12 @@ namespace myapp
         private void cursor_event_handlers(object sender, MouseButtonEventArgs e)
         {
             if (cty.Hole) create_hole(e);
-   
+            if (cty.Eraser) eraser_current(sender, e);
+
         }
 
         protected bool isDragging;
-        private Point clickPosition;
+        //private Point clickPosition;
         private void create_hole(MouseButtonEventArgs e)
         {
             Point p = Mouse.GetPosition(this.ShapeCanvas);
@@ -329,10 +353,46 @@ namespace myapp
             c.MouseMove += new MouseEventHandler(ele_move);
             c.MouseRightButtonDown += new MouseButtonEventHandler(show_prop);
             ShapeCanvas.Children.Add(c);
-            Canvas.SetLeft(c, e.GetPosition(this.ShapeCanvas).X-19);
-            Canvas.SetTop(c, e.GetPosition(this.ShapeCanvas).Y-15);
+            Canvas.SetLeft(c, e.GetPosition(this.ShapeCanvas).X - 19);
+            Canvas.SetTop(c, e.GetPosition(this.ShapeCanvas).Y - 15);
             Canvas.SetZIndex(c, 5);
         }
+
+        public  void RemoveChild(Canvas canvas, Point position)
+        {
+            Point recurp = new Point();
+            recurp.X = position.X +14;
+            recurp.Y = position.Y + 14;
+            //this.test_label.Text = position.X + " " + position.Y;
+            var element = canvas.InputHitTest(recurp) as UIElement;
+            UIElement parent;
+
+            while (element != null &&
+                (parent = VisualTreeHelper.GetParent(element) as UIElement) != canvas)
+            {
+                element = parent;
+            }
+
+            if (element !=null&&element is ele)
+            {
+                canvas.Children.Remove(element);
+            }
+        }
+
+        private void eraser_current(object sender, MouseButtonEventArgs e)
+        {
+           
+                var canvas = sender as Canvas;
+                RemoveChild(canvas, e.GetPosition(canvas));
+
+            //ele c = sender as ele;
+            //this.test_label.Text = c.GetType().ToString();
+            //if (c != null)
+            //{
+            //    this.ShapeCanvas.Children.Remove(c);
+            //}
+        }
+
         private void ele_copes(object sender, MouseButtonEventArgs e)
         {
             if (cty.Bomb_s)
@@ -341,7 +401,8 @@ namespace myapp
                 c.el2.Fill = new SolidColorBrush(Color.FromRgb(95, 95, 95));
                 c.el3.Fill = new SolidColorBrush(Color.FromRgb(95, 95, 95));
 
-            }else if (cty.Bomb_a)
+            }
+            else if (cty.Bomb_a)
             {
                 ele c = (ele)sender;
                 c.el2.Fill = new SolidColorBrush(Color.FromRgb(95, 95, 95));
@@ -351,13 +412,13 @@ namespace myapp
             {
                 isDragging = true;
                 ele c = (ele)sender;
-                clickPosition = e.GetPosition(this);
+                //clickPosition = e.GetPosition(this.Parent as UIElement);
                 c.CaptureMouse();
             }
 
         }
 
-        private void ele_copes_ad(object sender,MouseButtonEventArgs e)
+        private void ele_copes_ad(object sender, MouseButtonEventArgs e)
         {
             if (cty.Move)
             {
@@ -367,22 +428,33 @@ namespace myapp
             }
         }
 
-        private void ele_move(object sender,MouseEventArgs e)
+
+        private void ele_move(object sender, MouseEventArgs e)
         {
             if (cty.Move)
             {
                 var c = sender as ele;
                 if (isDragging && c != null)
                 {
-                    Point curp = e.GetPosition(this.Parent as UIElement);
-                    var trf = c.RenderTransform as TranslateTransform;
-                    if (trf == null)
-                    {
-                        trf = new TranslateTransform();
-                        c.RenderTransform = trf;
-                    }
-                    trf.X = curp.X - clickPosition.X;
-                    trf.Y = curp.Y - clickPosition.Y;
+                    Point curp = e.GetPosition(this.ShapeCanvas);
+                    //this.test_label.Text = curp.X.ToString() + " " + curp.Y.ToString();
+
+                    Canvas.SetLeft(c, curp.X - 19);
+                    Canvas.SetTop(c, curp.Y - 15);
+                    //var trf = c.RenderTransform as TranslateTransform;
+                    //var trf = new TranslateTransform();
+                    //if (trf == null)
+                    //{
+                    //    trf = new TranslateTransform();
+                    //    c.RenderTransform = trf;
+                    //}
+                    //Try
+                    //trf.X = curp.X - clickPosition.X;
+                    //trf.Y = curp.Y - clickPosition.Y;
+                    //c.RenderTransform = trf;
+                    //clickPosition.X = curp.X;
+                    //clickPosition.Y = curp.Y;
+
                 }
             }
         }
