@@ -46,8 +46,8 @@
                     <!--<Slider Height="40" Grid.Row="0" ValueChanged="SliderValue_OnValueChanged" Margin="342,11,9,9" Minimum="5" Maximum="100" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" Name="SliderValue"   Foreground="#FF0E0E0E"></Slider>-->
                     <TextBlock Margin="138,12,360,15" FontSize="18" FontFamily="Microsoft YaHei UI Light" Text="显示网格线" Foreground="#DD000000" RenderTransformOrigin="0.431,0.306"/>
                     <TextBlock x:Name="test_label" Margin="9,6,509,21" FontSize="18" FontFamily="Microsoft YaHei UI Light" Text="test" Foreground="#DD000000"/>
-                    <CheckBox Grid.Row="0" IsChecked="False" IsEnabled="True" Content="" x:Name="ShowGridlines"  Checked="ShowGridlines_OnChecked" Unchecked="ShowGridlines_OnUnchecked" HorizontalAlignment="Left" Margin="116,14.85,0,0" VerticalAlignment="Top"/>
-                    <Slider Width="235" x:Name="slidval" Minimum="10" Maximum="100" ValueChanged="SliderValue_OnValueChanged" HorizontalAlignment="Left" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True"  Margin="355,14.85,0,0" VerticalAlignment="Top" Foreground="#FFC3C3B9"/>
+                    <CheckBox Grid.Row="0"  IsChecked="False" IsEnabled="True" Content="" x:Name="ShowGridlines"  Checked="ShowGridlines_OnChecked" Unchecked="ShowGridlines_OnUnchecked" HorizontalAlignment="Left" Margin="116,14.85,0,0" VerticalAlignment="Top"/>
+                    <Slider Width="235"  x:Name="slidval" Minimum="10" Maximum="100" ValueChanged="SliderValue_OnValueChanged" HorizontalAlignment="Left" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True"  Margin="355,14.85,0,0" VerticalAlignment="Top" Foreground="#FFC3C3B9"/>
                 </Grid>
                 <Canvas DockPanel.Dock="Top" MouseLeftButtonDown="cursor_event_handlers" x:Name="ShapeCanvas" Background="#FFC3C3C3">
                     <Rectangle Panel.ZIndex="3" Height="379.64" Width="372"  Canvas.Top="55.5" Canvas.Left="39">
@@ -147,7 +147,7 @@
                 <DropShadowEffect Direction="175" BlurRadius="10" ShadowDepth="3" Color="#FFDEB0B0"/>
             </DockPanel.Effect>
 
-            <Grid DockPanel.Dock="Top" Visibility="Hidden" x:Name="property_panel" Height="450" Background="#FF784D4D">
+            <Grid DockPanel.Dock="Top" MouseEnter="allow_change" Visibility="Visible" x:Name="property_panel" Height="450" Background="#FF784D4D">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
@@ -160,32 +160,32 @@
 
 
                 </Grid.RowDefinitions>
-                <Button Grid.Row="0" Click="show_property" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" Background="{x:Null}" BorderBrush="{x:Null}">
+                <Button Grid.Row="0" Click="hide_property" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" Background="{x:Null}" BorderBrush="{x:Null}">
 
                     <materialDesign:PackIcon Kind="ArrowRight" Height="32.5" Width="41.5"/>
                 </Button>
                 <TextBlock Grid.Row="1" Text="延时" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="10.5,22.5,82.5,15" Width="57" Foreground="#DDFFF7F7"/>
-                <TextBox Grid.Row="1" Margin="50.667,7.667,37.833,13.333" Foreground="#DDFFF1F1" CaretBrush="Black" SelectionBrush="Black" BorderBrush="#89FFFFFF"/>
+                <TextBox Grid.Row="1" x:Name="delay_time" PreviewKeyDown="dual_delay1" LostFocus="dual_delay2"  Margin="50.667,7.667,37.833,13.333" Foreground="#DDFFF1F1" CaretBrush="Black" SelectionBrush="Black" BorderBrush="#89FFFFFF"/>
                 <TextBlock Grid.Row="1" Text="s" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="115.167,25.833,6.499,11.667" Width="28.334" Foreground="#DDFFF7F7" RenderTransformOrigin="0.576,0.547"/>
                 <TextBlock Grid.Row="2" Text="分组号" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="10.5,22.5,82.5,15" Width="57" Foreground="#DDFFF7F7"/>
-                <TextBox Grid.Row="2" HorizontalAlignment="Left"  Margin="80,15.64,0,0"  VerticalAlignment="Top" Width="37.5" Height="27.6" BorderBrush="#89FFFFFF" SelectionBrush="Black" CaretBrush="Black"/>
+                <TextBox Grid.Row="2" x:Name="group_id" PreviewKeyDown="dual_group1" LostFocus="dual_group2" HorizontalAlignment="Left"  Margin="80,15.64,0,0"  VerticalAlignment="Top" Width="37.5" Height="27.6" BorderBrush="#89FFFFFF" SelectionBrush="Black" CaretBrush="Black" Foreground="#DDFFFFFF" />
                 <TextBlock Grid.Row="3" Text="坐标" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="10.5,22.5,97.5,15" Width="42" Foreground="#DDFFF7F7"/>
                 <TextBlock Grid.Row="3" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="50.5,23.5,84,14" Width="15.5" Foreground="#DDFFF7F7"><Run Text="X"/><Run Text=":"/></TextBlock>
                 <TextBlock Grid.Row="3" x:Name="xlabel" TextAlignment="Center" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="14" Margin="68.499,26.834,51.334,18.666" Width="30.167" Foreground="#DDFFF7F7"/>
                 <TextBlock Grid.Row="3" x:Name="ylabel" TextAlignment="Center" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="14" Margin="117.166,26.834,2.667,18.666" Width="30.167" Foreground="#DDFFF7F7"/>
                 <TextBlock Grid.Row="3" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="99.5,23.5,35,14" Width="15.5" Foreground="#DDFFF7F7"><Run Text="Y"/><Run Text=":"/></TextBlock>
                 <TextBlock Grid.Row="4" Text="装药状态" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="10.5,22.5,59.5,15" Width="80" Foreground="#DDFFF7F7"/>
-                <CheckBox Grid.Row="4"  IsChecked="true" FontSize="16" Style="{StaticResource MaterialDesignActionDarkCheckBox}"  Margin="101,22,19,10.36" Height="28" Width="28" Background="#FF971313" BorderBrush="#FF7C7787" >
+                <CheckBox Grid.Row="4"  x:Name="bomb_state" IsHitTestVisible="False" IsChecked="true" FontSize="16" Style="{StaticResource MaterialDesignActionDarkCheckBox}"  Margin="101,22,19,10.36" Height="28" Width="28" Background="#FF971313" BorderBrush="#FF7C7787" >
                     <materialDesign:PackIcon Kind="Close"/>
                 </CheckBox>
                 <TextBlock Grid.Row="5" Text="爆炸时间" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="10.5,22.5,59.5,15" Width="80" Foreground="#DDFFF7F7"/>
-                <TextBox Grid.Row="5"  HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="14" Margin="89.333,22.333,20,16.167" Width="40.667" Foreground="#DDFFF7F7" Background="{x:Null}" BorderBrush="#89FFFFFF" CaretBrush="Black" SelectionBrush="Black"/>
+                <TextBox Grid.Row="5" PreviewKeyDown="dual_bomb_last1" LostFocus="dual_bomb_last2" x:Name="bomb_duration" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="14" Margin="89.333,22.333,20,16.167" Width="40.667" Foreground="#DDFFF7F7" Background="{x:Null}" BorderBrush="#89FFFFFF" CaretBrush="Black" SelectionBrush="Black"/>
                 <TextBlock Grid.Row="5" Text="s" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="133.833,23.833,2.167,19" Width="14" Foreground="#DDFFF7F7"/>
             </Grid>
         </DockPanel>
-        <Grid Panel.ZIndex="2" HorizontalAlignment="Right"  VerticalAlignment="Stretch" Width="120" Margin="50,140,40,60">
-            <TextBox HorizontalAlignment="Left" Height="48"   materialDesign:HintAssist.IsFloating="True" materialDesign:HintAssist.HintOpacity="0.9" Margin="10,10,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="起爆时间" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.698,0.87" FontSize="18" FontFamily="Microsoft YaHei UI Light" BorderBrush="#89000000" CaretBrush="Black" SelectionBrush="Black" Background="{x:Null}"/>
-            <Button ToolTip="启动/暂停" Click="_pause" Style="{StaticResource MaterialDesignFloatingActionButton}" Background="#FF00AEFF" BorderBrush="{x:Null}" Foreground="#DDFFFFFF" Margin="30,85,34,259">
+        <Grid Panel.ZIndex="2" Visibility="Visible" HorizontalAlignment="Right"  VerticalAlignment="Stretch" Width="120" Margin="50,140,40,60">
+            <TextBox x:Name="start_time_box" TextChanged="dual_start_timer" HorizontalAlignment="Left" Height="48"  materialDesign:HintAssist.IsFloating="True" materialDesign:HintAssist.HintOpacity="0.9" Margin="10,10,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="起爆时间" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.698,0.87" FontSize="18" FontFamily="Microsoft YaHei UI Light" BorderBrush="#89000000" CaretBrush="Black" SelectionBrush="Black" Background="{x:Null}"/>
+            <Button  ToolTip="启动/暂停" Click="_pause" Style="{StaticResource MaterialDesignFloatingActionButton}" Background="#FF00AEFF" BorderBrush="{x:Null}" Foreground="#DDFFFFFF" Margin="30,85,34,259">
                 <materialDesign:PackIcon Kind="{Binding Kind_type}" Width="30" Height="30"/>
             </Button>
             <Button ToolTip="重设所有属性" Click="_refresh" Style="{StaticResource MaterialDesignFloatingActionButton}" Background="#FF00AEFF" BorderBrush="{x:Null}" Foreground="#DDFFFFFF" Margin="30,181,34,163">

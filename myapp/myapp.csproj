@@ -68,6 +68,7 @@
     <Compile Include="items\ele.xaml.cs">
       <DependentUpon>ele.xaml</DependentUpon>
     </Compile>
+    <Compile Include="timer_count.cs" />
     <Compile Include="Utils.cs" />
     <Page Include="items\ele.xaml">
       <SubType>Designer</SubType>

@@ -9,7 +9,7 @@
              d:DesignHeight="50" d:DesignWidth="50">
     <Grid>
         <TextBox Visibility="Hidden" x:Name="mark" Height="21.167" Margin="1,29,0,-0.167" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="10" Foreground="#FF0C0C0C"/>
-        <Ellipse x:Name="el1" Margin="7,2,7,12" Fill="#FF7F7F7F" />
+        <Ellipse x:Name="el1" Margin="7,2,7,12" Fill="Black" />
         <Ellipse x:Name="el2" Margin="10,5,10,15" Fill="White" />
         <Ellipse x:Name="el3" Margin="15.333,10.333,15.333,20.333" Fill="White" />
     </Grid>
