@@ -155,13 +155,7 @@
     <None Include="Resources\tun.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="tun.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\tunn.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="tunn.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\safe.png" />
@@ -180,6 +174,18 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="bomba.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tunnel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\base.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\base.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="base.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns:local="clr-namespace:myapp"
-        
+
         mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -17,8 +17,9 @@
         AllowsTransparency="True"
         Background="Transparent"
         WindowStyle="None"
+        WindowState="Maximized"
         WindowStartupLocation="CenterScreen"
-        Title="MainWindow" Height="600" Width="900" Icon="app.png">
+        Title="app" Height="900" Width="1400" Icon="app.png">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -33,167 +34,187 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-
-
-
     <Grid>
+        <DockPanel x:Name="main_canvas">
+            <DockPanel DockPanel.Dock="Top" x:Name="titlebar" MouseLeftButtonDown="drag" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="52" Background="#FF3A3A3A">
+                <Border Background="Transparent" Cursor="Hand" MouseLeftButtonDown="close_wd" >
+                    <materialDesign:PackIcon  Kind="Close" Width="30" Height="30" Margin="10,12,0,0"/>
+                </Border>
+                <Border Background="Transparent" Cursor="Hand" MouseLeftButtonDown="max_wd" >
+                    <materialDesign:PackIcon  Kind="WindowMaximize" Width="30" Height="30" Margin="5,12,0,0"/>
+                </Border>
+                <Border Background="Transparent" HorizontalAlignment="Left" Cursor="Hand" MouseLeftButtonDown="min_wd" >
+                    <materialDesign:PackIcon  Kind="WindowMinimize" Width="30" Height="30" Margin="5,12,0,0"/>
+                </Border>
+                <TextBlock FontSize="18" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"><Run Text="隧道爆破设计可视化教学软件"/><Run Text="  "/><Run Text="Version 1.0.0"/></TextBlock>
+            </DockPanel>
+            <StackPanel DockPanel.Dock="Left" x:Name="leftbar" Background="#FFBCCDCB" Width="98" HorizontalAlignment="Left" VerticalAlignment="Stretch"  >
+                <Button  Height="60" Margin="0,0,0,0" Click="Set_cir_cursor" Background="Transparent" BorderBrush="Transparent" Foreground="#FF01579B">
+                    <fa:ImageAwesome Icon="Circle"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF01579B">
+                        <fa:ImageAwesome.Effect>
+                            <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
+                        </fa:ImageAwesome.Effect>
+                    </fa:ImageAwesome>
+                </Button>
+                <TextBlock Text="打孔" FontSize="18" HorizontalAlignment="Center"></TextBlock>
+                <Button  Height="60" Margin="0,0,0,0" Click="Set_pen_cursor" Background="Transparent" BorderBrush="Transparent">
+                    <fa:ImageAwesome Icon="PencilSquareOutline"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF4A148C">
+                        <fa:ImageAwesome.Effect>
+                            <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
+                        </fa:ImageAwesome.Effect>
+                    </fa:ImageAwesome>
+                </Button>
+                <TextBlock Text="标注" FontSize="18" HorizontalAlignment="Center"></TextBlock>
 
-        <materialDesign:Card  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#FFEDF3FF" Margin="10,10,10,10" Foreground="#DD705E5E">
-            <DockPanel x:Name="main_canvas" Margin="80,45,180,20" Background="#FFAA6A6A">
-                <Grid DockPanel.Dock="Top">
-                    <!--<CheckBox Grid.Row="0" IsEnabled="True" Name="ShowGridlines1" Content="" Checked="ShowGridlines_OnChecked" Unchecked="ShowGridlines_OnUnchecked" Margin="129.5,4,465.5,14.5" BorderBrush="#FF292929" Foreground="#DD000000" FontFamily="Microsoft YaHei UI Light" FontSize="17" ></CheckBox>-->
-                    <TextBlock Margin="282.5,12,264,15" FontSize="18" FontFamily="Microsoft YaHei UI Light" Text="缩放比例" Foreground="#DD000000"/>
-                    <!--<Slider Height="40" Grid.Row="0" ValueChanged="SliderValue_OnValueChanged" Margin="342,11,9,9" Minimum="5" Maximum="100" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" Name="SliderValue"   Foreground="#FF0E0E0E"></Slider>-->
-                    <TextBlock Margin="138,12,360,15" FontSize="18" FontFamily="Microsoft YaHei UI Light" Text="显示网格线" Foreground="#DD000000" RenderTransformOrigin="0.431,0.306"/>
-                    <TextBlock x:Name="test_label" Margin="9,6,509,21" FontSize="18" FontFamily="Microsoft YaHei UI Light" Text="test" Foreground="#DD000000"/>
-                    <CheckBox Grid.Row="0"  IsChecked="False" IsEnabled="True" Content="" x:Name="ShowGridlines"  Checked="ShowGridlines_OnChecked" Unchecked="ShowGridlines_OnUnchecked" HorizontalAlignment="Left" Margin="116,14.85,0,0" VerticalAlignment="Top"/>
-                    <Slider Width="235"  x:Name="slidval" Minimum="10" Maximum="100" ValueChanged="SliderValue_OnValueChanged" HorizontalAlignment="Left" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True"  Margin="355,14.85,0,0" VerticalAlignment="Top" Foreground="#FFC3C3B9"/>
-                </Grid>
-                <Canvas DockPanel.Dock="Top" MouseLeftButtonDown="cursor_event_handlers" x:Name="ShapeCanvas" Background="#FFC3C3C3">
-                    <Rectangle Panel.ZIndex="3" Height="379.64" Width="372"  Canvas.Top="55.5" Canvas.Left="39">
+                <Button  Height="60" Margin="0,0,0,0" Click="Set_bomb_cursor" Background="Transparent" BorderBrush="Transparent">
+                    <fa:ImageAwesome Icon="Bomb"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FFB71C1C">
+                        <fa:ImageAwesome.Effect>
+                            <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
+                        </fa:ImageAwesome.Effect>
+                    </fa:ImageAwesome>
+                </Button>
+                <TextBlock Text="连续装药" FontSize="18" HorizontalAlignment="Center"></TextBlock>
+
+                <Button  Height="60" Margin="0,0,0,0" Click="Set_bomba_cursor" Background="Transparent" BorderBrush="Transparent">
+                    <fa:ImageAwesome Icon="Rocket"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF3A00D4">
+                        <fa:ImageAwesome.Effect>
+                            <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
+                        </fa:ImageAwesome.Effect>
+                    </fa:ImageAwesome>
+                </Button>
+                <TextBlock Text="空气装药" FontSize="18" HorizontalAlignment="Center"></TextBlock>
+
+                <Button  Height="60" Margin="0,0,0,0" Click="Set_era_cursor"  Background="Transparent" BorderBrush="Transparent">
+                    <fa:ImageAwesome Icon="Eraser"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF33691E">
+                        <fa:ImageAwesome.Effect>
+                            <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
+                        </fa:ImageAwesome.Effect>
+                    </fa:ImageAwesome>
+                </Button>
+                <TextBlock Text="擦除" FontSize="18" HorizontalAlignment="Center"></TextBlock>
+
+                <Button  Height="60" Margin="0,0,0,0" Click="Set_crossp_cursor" Background="Transparent" BorderBrush="Transparent" Foreground="#FFFF6F00">
+                    <fa:ImageAwesome Icon="Plus"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FFFF6F00">
+                        <fa:ImageAwesome.Effect>
+                            <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
+                        </fa:ImageAwesome.Effect>
+                    </fa:ImageAwesome>
+                </Button>
+                <TextBlock Text="分组扩大" FontSize="18" HorizontalAlignment="Center"></TextBlock>
+
+                <Button  Height="60" Margin="0,0,0,0" Click="Set_crossm_cursor" Background="Transparent" BorderBrush="Transparent">
+                    <fa:ImageAwesome Icon="Times"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FFE65100">
+                        <fa:ImageAwesome.Effect>
+                            <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
+                        </fa:ImageAwesome.Effect>
+                    </fa:ImageAwesome>
+                </Button>
+                <TextBlock Text="分组交叉" FontSize="18" HorizontalAlignment="Center"></TextBlock>
+
+                <Button  Height="60" Margin="0,0,0,0" Click="Set_crossl_cursor" Background="Transparent" BorderBrush="Transparent">
+                    <fa:ImageAwesome Icon="Minus"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FFBF360C">
+                        <fa:ImageAwesome.Effect>
+                            <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
+                        </fa:ImageAwesome.Effect>
+                    </fa:ImageAwesome>
+                </Button>
+                <TextBlock Text="分组移除" FontSize="18" HorizontalAlignment="Center"></TextBlock>
+
+                <Button  Height="60" Margin="0,0,0,0" Click="Set_mouse_cursor" Background="Transparent" BorderBrush="Transparent">
+                    <fa:ImageAwesome Icon="MousePointer"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF212121">
+                        <fa:ImageAwesome.Effect>
+                            <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
+                        </fa:ImageAwesome.Effect>
+                    </fa:ImageAwesome>
+                </Button>
+                <TextBlock Text="移动" FontSize="18" HorizontalAlignment="Center"></TextBlock>
+
+            </StackPanel>
+            <Grid DockPanel.Dock="Top" Background="AliceBlue" >
+                <!--<CheckBox Grid.Row="0" IsEnabled="True" Name="ShowGridlines1" Content="" Checked="ShowGridlines_OnChecked" Unchecked="ShowGridlines_OnUnchecked" Margin="129.5,4,465.5,14.5" BorderBrush="#FF292929" Foreground="#DD000000" FontFamily="Microsoft YaHei UI Light" FontSize="17" ></CheckBox>-->
+                <TextBlock Margin="149,12,1065,15" FontSize="18" FontFamily="Microsoft YaHei UI Light" Text="缩放比例" Foreground="#DD000000"/>
+                <!--<Slider Height="40" Grid.Row="0" ValueChanged="SliderValue_OnValueChanged" Margin="342,11,9,9" Minimum="5" Maximum="100" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" Name="SliderValue"   Foreground="#FF0E0E0E"></Slider>-->
+                <TextBlock Margin="0,11,1207,16" FontSize="18" FontFamily="Microsoft YaHei UI Light" Foreground="#DD000000" RenderTransformOrigin="0.431,0.306"><Run Text=" "/><Run Text="显示网格线"/><Run Text=" "/></TextBlock>
+                <TextBlock x:Name="test_label" Margin="804,16,297,11" FontSize="18" FontFamily="Microsoft YaHei UI Light" Text="test" Foreground="#DD000000"/>
+                <CheckBox Grid.Row="0"  IsChecked="False" IsEnabled="True" Content="" x:Name="ShowGridlines"  Checked="ShowGridlines_OnChecked" Unchecked="ShowGridlines_OnUnchecked" HorizontalAlignment="Left" Margin="100,12,0,0" VerticalAlignment="Top" Height="22" />
+                <Slider Width="370"  x:Name="slidval" Minimum="10" Maximum="100" ValueChanged="SliderValue_OnValueChanged" HorizontalAlignment="Left" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True"  Margin="242,16,0,0" VerticalAlignment="Top" Foreground="White"/>
+                <TextBlock x:Name="timer_label" TextAlignment="Center" Margin="1178,16,10,11" FontSize="18" FontFamily="Microsoft YaHei UI Light" Foreground="#DD000000" Text="00:00"/>
+                <TextBlock  Margin="1140,16,102,11" FontSize="18" FontFamily="Microsoft YaHei UI Light" Text="计时器" Foreground="#DD000000"/>
+
+            </Grid>
+            <Grid DockPanel.Dock="Left" Background="AliceBlue"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Canvas  MouseLeftButtonDown="cursor_event_handlers" x:Name="ShapeCanvas" Background="#FFC3C3C3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,2,195,0">
+                    <Rectangle Panel.ZIndex="3" Height="678" Width="605"  Canvas.Top="66" Canvas.Left="55">
                         <Rectangle.Fill>
-                            <ImageBrush ImageSource="tunn.png">
+                            <ImageBrush ImageSource="base.png">
                             </ImageBrush>
                         </Rectangle.Fill>
                     </Rectangle>
-                    <StackPanel Panel.ZIndex="5" Height="300" Canvas.Right="20" Canvas.Top="103.14" Width="150" >
-                        <Image ToolTip="未装药状态" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" Height="100" Source="safe.png">
-                           
-                        </Image>
-                        <Image ToolTip="连续装药" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" Height="100" Source="bombs.png"/>
-                        <Image ToolTip="空气装药" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" Height="100" Source="bomba.png"/>
-                    </StackPanel>
                 </Canvas>
-            </DockPanel>
-        </materialDesign:Card>
-        <DockPanel x:Name="titlebar" MouseLeftButtonDown="drag" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="40" Background="#FF3A3A3A" Margin="20,10,20,0">
-            <Border Background="Transparent" Cursor="Hand" MouseLeftButtonDown="close_wd" >
-                <materialDesign:PackIcon  Kind="Close" Width="30" Height="30" Margin="5,5,0,0"/>
-            </Border>
-            <Border Background="Transparent" Cursor="Hand" MouseLeftButtonDown="max_wd" >
-                <materialDesign:PackIcon  Kind="WindowMaximize" Width="30" Height="30" Margin="5,5,0,0"/>
-            </Border>
-            <Border Background="Transparent" HorizontalAlignment="Left" Cursor="Hand" MouseLeftButtonDown="min_wd" >
-                <materialDesign:PackIcon  Kind="WindowMinimize" Width="30" Height="30" Margin="5,5,0,0"/>
-            </Border>
-        </DockPanel>
-        <StackPanel x:Name="leftbar" Background="#FFBCCDCB" Width="60" Margin="20,50,0,20" HorizontalAlignment="Left" VerticalAlignment="Stretch"  >
-            <Button ToolTip="打孔" Height="60" Margin="0,0,0,0" Click="Set_cir_cursor" Background="Transparent" BorderBrush="Transparent" Foreground="#FF01579B">
-                <fa:ImageAwesome Icon="Circle"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF01579B">
-                    <fa:ImageAwesome.Effect>
-                        <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
-                    </fa:ImageAwesome.Effect>
-                </fa:ImageAwesome>
-            </Button>
-            <Button ToolTip="标注" Height="60" Margin="0,0,0,0" Click="Set_pen_cursor" Background="Transparent" BorderBrush="Transparent">
-                <fa:ImageAwesome Icon="PencilSquareOutline"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF4A148C">
-                    <fa:ImageAwesome.Effect>
-                        <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
-                    </fa:ImageAwesome.Effect>
-                </fa:ImageAwesome>
-            </Button>
-            <Button ToolTip="连续装药" Height="60" Margin="0,0,0,0" Click="Set_bomb_cursor" Background="Transparent" BorderBrush="Transparent">
-                <fa:ImageAwesome Icon="Bomb"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FFB71C1C">
-                    <fa:ImageAwesome.Effect>
-                        <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
-                    </fa:ImageAwesome.Effect>
-                </fa:ImageAwesome>
-            </Button>
-            <Button ToolTip="空气间隔装药" Height="60" Margin="0,0,0,0" Click="Set_bomba_cursor" Background="Transparent" BorderBrush="Transparent">
-                <fa:ImageAwesome Icon="Rocket"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF3A00D4">
-                    <fa:ImageAwesome.Effect>
-                        <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
-                    </fa:ImageAwesome.Effect>
-                </fa:ImageAwesome>
-            </Button>
-            <Button ToolTip="移除" Height="60" Margin="0,0,0,0" Click="Set_era_cursor"  Background="Transparent" BorderBrush="Transparent">
-                <fa:ImageAwesome Icon="Eraser"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF33691E">
-                    <fa:ImageAwesome.Effect>
-                        <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
-                    </fa:ImageAwesome.Effect>
-                </fa:ImageAwesome>
-            </Button>
-            <Button ToolTip="分组扩大" Height="60" Margin="0,0,0,0" Click="Set_crossp_cursor" Background="Transparent" BorderBrush="Transparent" Foreground="#FFFF6F00">
-                <fa:ImageAwesome Icon="Plus"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FFFF6F00">
-                    <fa:ImageAwesome.Effect>
-                        <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
-                    </fa:ImageAwesome.Effect>
-                </fa:ImageAwesome>
-            </Button>
-            <Button ToolTip="分组交叉" Height="60" Margin="0,0,0,0" Click="Set_crossm_cursor" Background="Transparent" BorderBrush="Transparent">
-                <fa:ImageAwesome Icon="Times"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FFE65100">
-                    <fa:ImageAwesome.Effect>
-                        <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
-                    </fa:ImageAwesome.Effect>
-                </fa:ImageAwesome>
-            </Button>
-            <Button ToolTip="分组移除" Height="60" Margin="0,0,0,0" Click="Set_crossl_cursor" Background="Transparent" BorderBrush="Transparent">
-                <fa:ImageAwesome Icon="Minus"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FFBF360C">
-                    <fa:ImageAwesome.Effect>
-                        <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
-                    </fa:ImageAwesome.Effect>
-                </fa:ImageAwesome>
-            </Button>
-            <Button ToolTip="移动" Height="60" Margin="0,0,0,0" Click="Set_mouse_cursor" Background="Transparent" BorderBrush="Transparent">
-                <fa:ImageAwesome Icon="MousePointer"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF212121">
-                    <fa:ImageAwesome.Effect>
-                        <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
-                    </fa:ImageAwesome.Effect>
-                </fa:ImageAwesome>
-            </Button>
-        </StackPanel>
-        <DockPanel Panel.ZIndex="{Binding P_index}" Width="150" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,50,32.667,20">
-            <DockPanel.Effect>
-                <DropShadowEffect Direction="175" BlurRadius="10" ShadowDepth="3" Color="#FFDEB0B0"/>
-            </DockPanel.Effect>
-
-            <Grid DockPanel.Dock="Top" MouseEnter="allow_change" Visibility="Visible" x:Name="property_panel" Height="450" Background="#FF784D4D">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
+                <Grid DockPanel.Dock="Top" MouseEnter="allow_change" Visibility="Visible" x:Name="property_panel"  HorizontalAlignment="Right" Width="250" Margin="0,0,190,0" Background="#FF314B81">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" MinHeight="18"/>
+                        <RowDefinition Height="auto" MinHeight="80"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
 
 
 
-                </Grid.RowDefinitions>
-                <Button Grid.Row="0" Click="hide_property" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" Background="{x:Null}" BorderBrush="{x:Null}">
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="2" Text="延时" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="32,100,162,11" Width="56" Foreground="#DDFFF7F7"/>
+                    <TextBlock Grid.Row="2" x:Name="index_in_panel" Text="#" TextAlignment="Center" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="127,42,67,69" Width="56" Foreground="#DDFFF7F7"/>
 
-                    <materialDesign:PackIcon Kind="ArrowRight" Height="32.5" Width="41.5"/>
-                </Button>
-                <TextBlock Grid.Row="1" Text="延时" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="10.5,22.5,82.5,15" Width="57" Foreground="#DDFFF7F7"/>
-                <TextBox Grid.Row="1" x:Name="delay_time" PreviewKeyDown="dual_delay1" LostFocus="dual_delay2"  Margin="50.667,7.667,37.833,13.333" Foreground="#DDFFF1F1" CaretBrush="Black" SelectionBrush="Black" BorderBrush="#89FFFFFF"/>
-                <TextBlock Grid.Row="1" Text="s" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="115.167,25.833,6.499,11.667" Width="28.334" Foreground="#DDFFF7F7" RenderTransformOrigin="0.576,0.547"/>
-                <TextBlock Grid.Row="2" Text="分组号" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="10.5,22.5,82.5,15" Width="57" Foreground="#DDFFF7F7"/>
-                <TextBox Grid.Row="2" x:Name="group_id" PreviewKeyDown="dual_group1" LostFocus="dual_group2" HorizontalAlignment="Left"  Margin="80,15.64,0,0"  VerticalAlignment="Top" Width="37.5" Height="27.6" BorderBrush="#89FFFFFF" SelectionBrush="Black" CaretBrush="Black" Foreground="#DDFFFFFF" />
-                <TextBlock Grid.Row="3" Text="坐标" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="10.5,22.5,97.5,15" Width="42" Foreground="#DDFFF7F7"/>
-                <TextBlock Grid.Row="3" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="50.5,23.5,84,14" Width="15.5" Foreground="#DDFFF7F7"><Run Text="X"/><Run Text=":"/></TextBlock>
-                <TextBlock Grid.Row="3" x:Name="xlabel" TextAlignment="Center" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="14" Margin="68.499,26.834,51.334,18.666" Width="30.167" Foreground="#DDFFF7F7"/>
-                <TextBlock Grid.Row="3" x:Name="ylabel" TextAlignment="Center" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="14" Margin="117.166,26.834,2.667,18.666" Width="30.167" Foreground="#DDFFF7F7"/>
-                <TextBlock Grid.Row="3" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="99.5,23.5,35,14" Width="15.5" Foreground="#DDFFF7F7"><Run Text="Y"/><Run Text=":"/></TextBlock>
-                <TextBlock Grid.Row="4" Text="装药状态" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="10.5,22.5,59.5,15" Width="80" Foreground="#DDFFF7F7"/>
-                <CheckBox Grid.Row="4"  x:Name="bomb_state" IsHitTestVisible="False" IsChecked="true" FontSize="16" Style="{StaticResource MaterialDesignActionDarkCheckBox}"  Margin="101,22,19,10.36" Height="28" Width="28" Background="#FF971313" BorderBrush="#FF7C7787" >
-                    <materialDesign:PackIcon Kind="Close"/>
-                </CheckBox>
-                <TextBlock Grid.Row="5" Text="爆炸时间" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="10.5,22.5,59.5,15" Width="80" Foreground="#DDFFF7F7"/>
-                <TextBox Grid.Row="5" PreviewKeyDown="dual_bomb_last1" LostFocus="dual_bomb_last2" x:Name="bomb_duration" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="14" Margin="89.333,22.333,20,16.167" Width="40.667" Foreground="#DDFFF7F7" Background="{x:Null}" BorderBrush="#89FFFFFF" CaretBrush="Black" SelectionBrush="Black"/>
-                <TextBlock Grid.Row="5" Text="s" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="133.833,23.833,2.167,19" Width="14" Foreground="#DDFFF7F7"/>
+                    <TextBlock Grid.Row="2" Text="编号" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="32,42,162,69" Width="56" Foreground="#DDFFF7F7"/>
+                    <TextBox Grid.Row="2" x:Name="delay_time" TextChanged="dual_delay"  Margin="127,100,41,10" Foreground="#DDFFF1F1" CaretBrush="Black" SelectionBrush="Black" BorderBrush="#89FFFFFF"/>
+                    <TextBlock Grid.Row="2" Text="s" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="188,101,44,11" Width="18" Foreground="#DDFFF7F7" RenderTransformOrigin="0.576,0.547"/>
+                    <TextBlock Grid.Row="3" Text="分组号" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="32,23,162,14" Width="56" Foreground="#DDFFF7F7"/>
+                    <TextBox Grid.Row="3" x:Name="group_id" TextChanged="dual_group" HorizontalAlignment="Left"  Margin="127,23,0,0"  VerticalAlignment="Top" Width="79" Height="28" BorderBrush="#89FFFFFF" SelectionBrush="Black" CaretBrush="Black" Foreground="#DDFFFFFF" />
+                    <TextBlock Grid.Row="4" Text="坐标" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="32,19,176,18" Width="42" Foreground="#DDFFF7F7"/>
+                    <TextBlock Grid.Row="4" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="94,23,134,14" Width="22" Foreground="#DDFFF7F7"><Run Text="X"/><Run Text=":"/></TextBlock>
+                    <TextBlock Grid.Row="4" x:Name="xlabel" TextAlignment="Center" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="14" Margin="118,23,83,19" Width="49" Foreground="#DDFFF7F7"/>
+                    <TextBlock Grid.Row="4" x:Name="ylabel" TextAlignment="Center" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="14" Margin="188,23,10,18" Width="52" Foreground="#DDFFF7F7"/>
+                    <TextBlock Grid.Row="4" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="167,23,67,14" Width="16" Foreground="#DDFFF7F7"><Run Text="Y"/><Run Text=":"/></TextBlock>
+                    <TextBlock Grid.Row="5" Text="装药状态" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="32,22,138,15" Width="80" Foreground="#DDFFF7F7"/>
+                    <CheckBox Grid.Row="5"  x:Name="bomb_state" IsHitTestVisible="False" IsChecked="true" FontSize="16" Style="{StaticResource MaterialDesignActionDarkCheckBox}"    Background="#FF971313" BorderBrush="#FF7C7787" Margin="135,20,83,10" >
+                        <materialDesign:PackIcon Kind="Close"/>
+                    </CheckBox>
+                    <TextBlock Grid.Row="6" Text="爆炸时间" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="32,22,138,15" Width="80" Foreground="#DDFFF7F7"/>
+                    <TextBox Grid.Row="6" TextChanged="dual_bomb_last" x:Name="bomb_duration" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="14" Margin="127,22,44,16" Width="79" Foreground="#DDFFF7F7" Background="{x:Null}" BorderBrush="#89FFFFFF" CaretBrush="Black" SelectionBrush="Black"/>
+                    <TextBlock Grid.Row="6" Text="s" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="184,24,52,19" Width="14" Foreground="#DDFFF7F7"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="57,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="爆破孔属性面板" VerticalAlignment="Top" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI" FontSize="18"/>
+
+
+                </Grid>
+                <StackPanel HorizontalAlignment="Right" Background="#FF636980" VerticalAlignment="Stretch" Width="195">
+                    <Grid Panel.ZIndex="2" Visibility="Visible" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  >
+                        <TextBox x:Name="start_time_box" TextChanged="dual_start_timer" HorizontalAlignment="Left" Height="48"  materialDesign:HintAssist.IsFloating="True" materialDesign:HintAssist.HintOpacity="0.9" Margin="27,97,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="起爆时间"  VerticalAlignment="Top" Width="139" RenderTransformOrigin="0.698,0.87" FontSize="18" FontFamily="Microsoft YaHei UI Light" BorderBrush="#89000000" CaretBrush="Black" SelectionBrush="Black" Background="{x:Null}" Foreground="#DDFFFFFF"/>
+                        <Button   Click="_pause" Style="{StaticResource MaterialDesignFloatingActionButton}" Background="#FF00AEFF" BorderBrush="{x:Null}" Foreground="#DDFFFFFF" Margin="68,180,71,156">
+                            <materialDesign:PackIcon Kind="{Binding Kind_type}" Width="30" Height="30"/>
+                        </Button>
+                        <Button  Click="_refresh" Style="{StaticResource MaterialDesignFloatingActionButton}" Background="#FF00AEFF" BorderBrush="{x:Null}" Foreground="#DDFFFFFF" Margin="68,300,71,39">
+                            <materialDesign:PackIcon Kind="Refresh" Width="30" Height="30"/>
+                        </Button>
+                        <Button  Click="_delete" Style="{StaticResource MaterialDesignFloatingActionButton}" Background="#FF00AEFF" BorderBrush="{x:Null}" Foreground="#DDFFFFFF" Margin="68,420,71,-84">
+                            <materialDesign:PackIcon Kind="Delete" Width="30" Height="30"/>
+                        </Button>
+                        <Label Content="启动/停止按钮" HorizontalAlignment="Left" Margin="40,256,0,0" VerticalAlignment="Top" Width="112" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI" FontSize="16"/>
+                        <Label Content="重设所有爆孔属性" HorizontalAlignment="Left" Margin="27,379,0,-9" VerticalAlignment="Top" Width="139" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI" FontSize="16"/>
+                        <Label Content="清除所有爆孔" HorizontalAlignment="Left" Margin="42,506,0,-136" VerticalAlignment="Top" Width="106" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI" FontSize="16"/>
+                        <Button Click="recountdown" Style="{StaticResource MaterialDesignFloatingActionButton}" Background="#FF00AEFF" BorderBrush="{x:Null}" Foreground="#DDFFFFFF" Margin="68,557,71,-213">
+                            <materialDesign:PackIcon Kind="ClockStart" Width="30" Height="30"/>
+                        </Button>
+                        <Label Content="重新计时"  HorizontalAlignment="Left" Margin="60,632,0,-262" VerticalAlignment="Top" Width="74" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI" FontSize="16"/>
+                        <Label Content="s" HorizontalAlignment="Left" Margin="135,114,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI" FontSize="16"/>
+                        <Label Content="操作面板" HorizontalAlignment="Left" Margin="60,22,0,0" VerticalAlignment="Top" Width="84" Foreground="#DDFFFCFC" FontFamily="Microsoft YaHei UI" FontSize="18"/>
+                    </Grid>
+                </StackPanel>
+
             </Grid>
+
         </DockPanel>
-        <Grid Panel.ZIndex="2" Visibility="Visible" HorizontalAlignment="Right"  VerticalAlignment="Stretch" Width="120" Margin="50,140,40,60">
-            <TextBox x:Name="start_time_box" TextChanged="dual_start_timer" HorizontalAlignment="Left" Height="48"  materialDesign:HintAssist.IsFloating="True" materialDesign:HintAssist.HintOpacity="0.9" Margin="10,10,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="起爆时间" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.698,0.87" FontSize="18" FontFamily="Microsoft YaHei UI Light" BorderBrush="#89000000" CaretBrush="Black" SelectionBrush="Black" Background="{x:Null}"/>
-            <Button  ToolTip="启动/暂停" Click="_pause" Style="{StaticResource MaterialDesignFloatingActionButton}" Background="#FF00AEFF" BorderBrush="{x:Null}" Foreground="#DDFFFFFF" Margin="30,85,34,259">
-                <materialDesign:PackIcon Kind="{Binding Kind_type}" Width="30" Height="30"/>
-            </Button>
-            <Button ToolTip="重设所有属性" Click="_refresh" Style="{StaticResource MaterialDesignFloatingActionButton}" Background="#FF00AEFF" BorderBrush="{x:Null}" Foreground="#DDFFFFFF" Margin="30,181,34,163">
-                <materialDesign:PackIcon Kind="Refresh" Width="30" Height="30"/>
-            </Button>
-            <Button ToolTip="清除画布" Click="_delete" Style="{StaticResource MaterialDesignFloatingActionButton}" Background="#FF00AEFF" BorderBrush="{x:Null}" Foreground="#DDFFFFFF" Margin="30,277,34,67">
-                <materialDesign:PackIcon Kind="Delete" Width="30" Height="30"/>
-            </Button>
-        </Grid>
     </Grid>
 </Window>

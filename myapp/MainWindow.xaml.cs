@@ -34,8 +34,8 @@ namespace myapp
         public int holes_num { get; set; }
         private int remains { get; set; }
         protected bool isDragging;
-        Brush _color1 = Brushes.Black;
-        Brush _color2 = Brushes.Gray;
+        Brush _color1 = Brushes.YellowGreen;
+        Brush _color2 = Brushes.Red;
         private ele curele_in_panel;
         private int changeability = 0;
         private Utils ut;
@@ -70,7 +70,8 @@ namespace myapp
             //属性栏隐藏
             this.property_panel.Visibility = Visibility.Visible;
             this.start_time = 5;
-            this.cd = 0;
+            this.cd = 1;
+            //计时器初始化
             timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 1);
             timer.Tick += timer_Tick;
@@ -78,8 +79,9 @@ namespace myapp
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            this.test_label.Text = cd.ToString();
             this.cd++;
+
+            this.timer_label.Text = string.Format("{0:D2}:{1:D2}",cd/60,cd%60);
             int temp_cutd = cd - this.start_time;
             if (temp_cutd == 0)
             {
@@ -121,6 +123,7 @@ namespace myapp
                     this.timer.Stop();
                     this.cd = 0;
                     this.remains = 0;
+                    this.timer_label.Text = string.Format("{0:D2}:{1:D2}", cd / 60, cd % 60);
                 }
             }
 
@@ -256,6 +259,7 @@ namespace myapp
             //ut.Kind_type = ut.Kind_type.ToString().Equals("Play") ? "Pause" : "Play";
             ut.Kind_type = "Pause";
             this.timer.Start();
+            this.timer_label.Text = string.Format("{0:D2}:{1:D2}", cd / 60, cd % 60);
             //this.test_label.Text = ut.Kind_type.ToString();
             //this.test_label.Text = this.start_time_box.Text;
             //Console.Write("heelo");
@@ -299,12 +303,12 @@ namespace myapp
                 if ((el = this.ShapeCanvas.Children[index]) is ele)
                     this.ShapeCanvas.Children.Remove(el);
         }
-        private void hide_property(object sender, RoutedEventArgs e)
-        {
-            this.property_panel.Visibility = Visibility.Hidden;
-            ut.P_index = "1";
-            changeability = 0;
-        }
+        //private void hide_property(object sender, RoutedEventArgs e)
+        //{
+        //    this.property_panel.Visibility = Visibility.Hidden;
+        //    ut.P_index = "1";
+        //    changeability = 0;
+        //}
 
         private void ShowGridlines_OnChecked(object sender, RoutedEventArgs e)
         {
@@ -335,7 +339,7 @@ namespace myapp
             //Draw the grid
             DrawingVisual gridLinesVisual = new DrawingVisual();
             DrawingContext dct = gridLinesVisual.RenderOpen();
-            Pen lightPen = new Pen(_color1, 0.5), darkPen = new Pen(_color2, 1);
+            Pen lightPen = new Pen(_color1, 0.8), darkPen = new Pen(_color2, 1);
             lightPen.Freeze();
             darkPen.Freeze();
 
@@ -405,17 +409,23 @@ namespace myapp
         private void create_hole(MouseButtonEventArgs e)
         {
             Point p = Mouse.GetPosition(this.ShapeCanvas);
-            ele c = new ele(p) { Width = 40, Height = 40 };
+            this.holes_num++;
+            ele c = new ele(p,holes_num) { Width = 40, Height = 40 };
             c.MouseLeftButtonDown += new MouseButtonEventHandler(ele_copes);
             c.MouseLeftButtonUp += new MouseButtonEventHandler(ele_copes_ad);
             c.MouseMove += new MouseEventHandler(ele_move);
+            c.MouseLeave += new MouseEventHandler(ele_border_hide);
+            c.MouseEnter += new MouseEventHandler(ele_border_show);
+            c.MouseEnter += new MouseEventHandler(show_prop);
             c.MouseRightButtonDown += new MouseButtonEventHandler(show_prop);
             ShapeCanvas.Children.Add(c);
-            Canvas.SetLeft(c, e.GetPosition(this.ShapeCanvas).X - 19);
-            Canvas.SetTop(c, e.GetPosition(this.ShapeCanvas).Y - 15);
+            Canvas.SetLeft(c, e.GetPosition(this.ShapeCanvas).X-20);
+            Canvas.SetTop(c, e.GetPosition(this.ShapeCanvas).Y-20);
             Canvas.SetZIndex(c, 5);
-            this.holes_num++;
+            
         }
+
+     
 
         public void RemoveChild(Canvas canvas, Point position)
         {
@@ -434,14 +444,15 @@ namespace myapp
             if (element != null && element is ele)
             {
                 canvas.Children.Remove(element);
+                this.holes_num--;
             }
         }
 
         private void eraser_current(object sender, MouseButtonEventArgs e)
         {
-
             var canvas = sender as Canvas;
             RemoveChild(canvas, e.GetPosition(canvas));
+           
         }
 
         private void ele_copes(object sender, MouseButtonEventArgs e)
@@ -450,27 +461,28 @@ namespace myapp
             {
                 ele c = (ele)sender;
                 c.set_bam_s();
-
+                show_prop(sender, e);
 
             }
             else if (cty.Bomb_a)
             {
                 ele c = (ele)sender;
                 c.set_bam_a();
-
+                show_prop(sender, e);
             }
             else if (cty.Move)
             {
                 isDragging = true;
                 ele c = (ele)sender;
                 c.CaptureMouse();
+                show_prop(sender, e);
             }
 
         }
 
         private void ele_copes_ad(object sender, MouseButtonEventArgs e)
         {
-            if (cty.Move)
+            if (cty.Move&&e.LeftButton==MouseButtonState.Released)
             {
                 isDragging = false;
                 var c = sender as ele;
@@ -481,6 +493,7 @@ namespace myapp
 
         private void ele_move(object sender, MouseEventArgs e)
         {
+          
             if (cty.Move)
             {
                 var c = sender as ele;
@@ -488,29 +501,25 @@ namespace myapp
                 {
                     Point curp = e.GetPosition(this.ShapeCanvas);
                     //this.test_label.Text = curp.X.ToString() + " " + curp.Y.ToString();
+                    Canvas.SetLeft(c, curp.X - 20);
+                    Canvas.SetTop(c, curp.Y - 20);
 
-                    Canvas.SetLeft(c, curp.X - 19);
-                    Canvas.SetTop(c, curp.Y - 15);
                     c.x_label = Convert.ToInt32(curp.X);
                     c.y_label = Convert.ToInt32(curp.Y);
-                    //var trf = c.RenderTransform as TranslateTransform;
-                    //var trf = new TranslateTransform();
-                    //if (trf == null)
-                    //{
-                    //    trf = new TranslateTransform();
-                    //    c.RenderTransform = trf;
-                    //}
-                    //Try
-                    //trf.X = curp.X - clickPosition.X;
-                    //trf.Y = curp.Y - clickPosition.Y;
-                    //c.RenderTransform = trf;
-                    //clickPosition.X = curp.X;
-                    //clickPosition.Y = curp.Y;
-
+               
                 }
             }
         }
-
+        private void ele_border_show(object sender, MouseEventArgs e)
+        {
+            var c = sender as ele;
+            c.border.Stroke = new SolidColorBrush(Colors.GhostWhite);
+        }
+        private void ele_border_hide(object sender, MouseEventArgs e)
+        {
+            var c = sender as ele;
+            c.border.Stroke = new SolidColorBrush(Colors.Transparent);
+        }
         private void show_prop(object sender, MouseEventArgs e)
         {
             ele c = (ele)sender;
@@ -527,6 +536,7 @@ namespace myapp
             this.bomb_state.IsChecked = cir.state > 0 ? true : false;
             this.bomb_duration.Text = cir.duration.ToString();
             this.property_panel.Visibility = Visibility.Visible;
+            this.index_in_panel.Text = cir.index_label.Text;
             ut.P_index = "3";
             this.curele_in_panel = cir;
         }
@@ -538,61 +548,32 @@ namespace myapp
             changeability = 1;
         }
 
-        private void dual_delay()
+        private void dual_delay(object sender, TextChangedEventArgs e)
         {
-            if (this.delay_time.Text != null && changeability == 1 && curele_in_panel != null && IsInteger(this.delay_time.Text))
+            if (IsInteger(this.delay_time.Text.Trim()))
             {
-                this.curele_in_panel.change_delay(int.Parse(this.delay_time.Text));
+                this.curele_in_panel.change_delay(int.Parse(this.delay_time.Text.Trim()));
                 this.test_label.Text = changeability.ToString() + " " + this.curele_in_panel.delay.ToString();
 
             }
         }
 
-        private void dual_delay1(object sender, KeyEventArgs e)
+        private void dual_group(object sender, TextChangedEventArgs e)
         {
-            dual_delay();
-        }
-
-        private void dual_delay2(object sender, RoutedEventArgs e)
-        {
-            dual_delay();
-        }
-
-        private void dual_group()
-        {
-            if (IsInteger(this.group_id.Text) && this.group_id.Text != null && changeability == 1 && curele_in_panel != null)
+            if (IsInteger(this.group_id.Text.Trim()))
             {
-                this.curele_in_panel.change_group_id(int.Parse(this.group_id.Text));
+                this.curele_in_panel.change_group_id(int.Parse(this.group_id.Text.Trim()));
                 this.test_label.Text = changeability.ToString() + " " + this.curele_in_panel.group_id.ToString();
             }
 
         }
 
-        private void dual_group1(object sender, KeyEventArgs e)
-        {
-            dual_group();
-        }
 
-        private void dual_group2(object sender, RoutedEventArgs e)
+        private void dual_bomb_last(object sender, TextChangedEventArgs e)
         {
-            dual_group();
-        }
-
-        private void dual_bomb_last1(object sender, KeyEventArgs e)
-        {
-            dual_bomb_last();
-        }
-
-        private void dual_bomb_last2(object sender, RoutedEventArgs e)
-        {
-            dual_bomb_last();
-        }
-
-        private void dual_bomb_last()
-        {
-            if (this.bomb_duration.Text != null && changeability == 1 && curele_in_panel != null && IsInteger(this.bomb_duration.Text))
+            if (IsInteger(this.bomb_duration.Text.Trim()))
             {
-                this.curele_in_panel.change_duration(int.Parse(this.bomb_duration.Text));
+                this.curele_in_panel.change_duration(int.Parse(this.bomb_duration.Text.Trim()));
                 this.test_label.Text = changeability.ToString() + " " + this.curele_in_panel.duration.ToString();
             }
         }
@@ -610,6 +591,24 @@ namespace myapp
         private void slide_ability(object sender, DependencyPropertyChangedEventArgs e)
         {
             this.slidval.IsEnabled = false;
+        }
+
+        private void recountdown(object sender, RoutedEventArgs e)
+        {
+            this.cd = 0;
+            this.timer_label.Text = string.Format("{0:D2}:{1:D2}", cd / 60, cd % 60);
+            this.timer.Stop();
+            foreach (var c in LogicalTreeHelper.GetChildren(this.ShapeCanvas))
+            {
+                if (c is ele)
+                {
+                   
+                    ele circle_ = c as ele;
+                    circle_.change_color(Colors.Black);
+                }
+              
+            }
+            reset_count_down();
         }
     }
 }

@@ -30,7 +30,7 @@ namespace myapp.items
         public int state { get; set; }
         public int group_id { get; set; }
 
-        public ele(Point p_)
+        public ele(Point p_,int index)
         {
             InitializeComponent();
             this.group_id = 0;
@@ -38,9 +38,12 @@ namespace myapp.items
             this.delay = 2;
             this.state = 0;
             this.duration = 3;
-            this.cache_point = p_;
+            this.cache_point = new Point(p_.X - 20, p_.Y - 20);
             this.x_label = Convert.ToInt32(p_.X);
             this.y_label = Convert.ToInt32(p_.Y);
+            this.border.Fill = new SolidColorBrush(Colors.Transparent);
+            this.index_label.Text = index.ToString();
+
         }
 
         public void refresh()
@@ -108,7 +111,7 @@ namespace myapp.items
             {
                 this.state = 2;
                 this.el2.Fill = new SolidColorBrush(Color.FromRgb(95, 95, 95));
-                this.el3.Fill = new SolidColorBrush(Colors.White);
+                this.el3.Fill = new SolidColorBrush(Color.FromRgb(195,195,195));
             }
             else
             {
@@ -117,8 +120,8 @@ namespace myapp.items
         }
 
         public void reset_color(){
-            this.el2.Fill = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-            this.el3.Fill = new SolidColorBrush(Color.FromRgb(255, 255,255));
+            this.el2.Fill = new SolidColorBrush(Color.FromRgb(195,195,195));
+            this.el3.Fill = new SolidColorBrush(Color.FromRgb(195, 195, 195));
             this.state = 0;
         }
     }
