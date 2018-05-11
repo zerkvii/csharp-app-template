@@ -142,15 +142,20 @@
                 <TextBlock  Margin="1140,16,102,11" FontSize="18" FontFamily="Microsoft YaHei UI Light" Text="计时器" Foreground="#DD000000"/>
 
             </Grid>
-            <Grid DockPanel.Dock="Left" Background="AliceBlue"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                <Canvas  MouseLeftButtonDown="cursor_event_handlers" x:Name="ShapeCanvas" Background="#FFC3C3C3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,2,195,0">
+            <Grid DockPanel.Dock="Left"  Background="AliceBlue"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Canvas  MouseLeftButtonDown="cursor_event_handlers" MouseLeftButtonUp="rect_up" MouseMove="rect_move"  x:Name="ShapeCanvas" Background="#FFC3C3C3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,2,195,0">
                     <Rectangle Panel.ZIndex="3" Height="678" Width="605"  Canvas.Top="66" Canvas.Left="55">
                         <Rectangle.Fill>
                             <ImageBrush ImageSource="base.png">
                             </ImageBrush>
                         </Rectangle.Fill>
                     </Rectangle>
+                    <Rectangle x:Name="selection_p" Visibility="Collapsed" Stroke="Black" StrokeThickness="2"/>
+                    <Rectangle x:Name="selection_m" Visibility="Collapsed" Stroke="Pink" StrokeThickness="2"/>
+                    <Rectangle x:Name="selection_x" Visibility="Collapsed" Stroke="Yellow" StrokeThickness="2"/>
+
                 </Canvas>
+                
                 <Grid DockPanel.Dock="Top" MouseEnter="allow_change" Visibility="Visible" x:Name="property_panel"  HorizontalAlignment="Right" Width="250" Margin="0,0,190,0" Background="#FF314B81">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto" MinHeight="18"/>

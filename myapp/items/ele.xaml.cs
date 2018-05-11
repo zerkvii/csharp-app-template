@@ -29,10 +29,12 @@ namespace myapp.items
         public int color { get; set; }
         public int state { get; set; }
         public int group_id { get; set; }
+        public bool is_grouped { get; set; }
 
         public ele(Point p_,int index)
         {
             InitializeComponent();
+            this.is_grouped = false;
             this.group_id = 0;
             this.color = 0;
             this.delay = 2;
@@ -70,7 +72,10 @@ namespace myapp.items
         public void change_group_id(int val)
         {
             if (val >= 0)
+            {
+                this.is_grouped = true;
                 this.group_id = val;
+            }
             else
             {
                 //warning
@@ -117,6 +122,12 @@ namespace myapp.items
             {
                 reset_color();
             }
+        }
+        public void set_st(int st)
+        {
+            if (st == 2) set_bam_a();
+            else if (st == 1) set_bam_s();
+            else reset_color();
         }
 
         public void reset_color(){

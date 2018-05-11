@@ -33,6 +33,8 @@ namespace myapp
         public int start_time { get; set; }
         public int holes_num { get; set; }
         private int remains { get; set; }
+        private bool allow_show_property { get; set; }
+        public int holes_index { get; set; }
         protected bool isDragging;
         Brush _color1 = Brushes.YellowGreen;
         Brush _color2 = Brushes.Red;
@@ -58,6 +60,8 @@ namespace myapp
         {
             this.remains = 0;
             this.holes_num = 0;
+            this.holes_index = 0;
+            this.allow_show_property = true;
             cur = cursorhelper.frombytearray(Properties.Resources.normal_select_blue);
             this.Cursor = cur;
             InitializeComponent();
@@ -81,7 +85,7 @@ namespace myapp
         {
             this.cd++;
 
-            this.timer_label.Text = string.Format("{0:D2}:{1:D2}",cd/60,cd%60);
+            this.timer_label.Text = string.Format("{0:D2}:{1:D2}", cd / 60, cd % 60);
             int temp_cutd = cd - this.start_time;
             if (temp_cutd == 0)
             {
@@ -90,8 +94,8 @@ namespace myapp
                     if (c is ele)
                     {
                         ele circle_ = c as ele;
-                        if(circle_.state>0)
-                        (c as ele).change_color(Colors.Yellow);
+                        if (circle_.state > 0)
+                            (c as ele).change_color(Colors.Yellow);
                     }
                 }
             }
@@ -104,13 +108,14 @@ namespace myapp
                     {
                         ele circle_ = c as ele;
                         if (temp_cutd - circle_.delay == 0)
-                            if(circle_.state>0)
-                            circle_.change_color(Colors.Red);
+                            if (circle_.state > 0)
+                                circle_.change_color(Colors.Red);
                         if (temp_cutd - circle_.delay - circle_.duration == 0)
                         {
+                            //对于当起爆时间小于默认的例子，会出现不归零情况，bug
                             remains++;
-                            if(circle_.state>0)
-                            circle_.change_color(Colors.Black);
+                            if (circle_.state > 0)
+                                circle_.change_color(Colors.Black);
                         }
                         //(c as ele).change_color(Colors.Yellow);
 
@@ -290,7 +295,7 @@ namespace myapp
                     this.test_label.Text = "refresh";
                     ele circle_ = c as ele;
                     circle_.refresh();
-                   
+
                     Canvas.SetLeft(circle_, circle_.cache_point.X);
                     Canvas.SetTop(circle_, circle_.cache_point.Y);
                 }
@@ -404,28 +409,29 @@ namespace myapp
         {
             if (cty.Hole) create_hole(e);
             if (cty.Eraser) eraser_current(sender, e);
-
+            if (cty.Gp || cty.Gm || cty.Gx) rect_down(sender, e);
         }
         private void create_hole(MouseButtonEventArgs e)
         {
             Point p = Mouse.GetPosition(this.ShapeCanvas);
             this.holes_num++;
-            ele c = new ele(p,holes_num) { Width = 40, Height = 40 };
+            this.holes_index++;
+            ele c = new ele(p, holes_index) { Width = 40, Height = 40 };
             c.MouseLeftButtonDown += new MouseButtonEventHandler(ele_copes);
             c.MouseLeftButtonUp += new MouseButtonEventHandler(ele_copes_ad);
             c.MouseMove += new MouseEventHandler(ele_move);
             c.MouseLeave += new MouseEventHandler(ele_border_hide);
             c.MouseEnter += new MouseEventHandler(ele_border_show);
             c.MouseEnter += new MouseEventHandler(show_prop);
-            c.MouseRightButtonDown += new MouseButtonEventHandler(show_prop);
+            c.MouseRightButtonDown += new MouseButtonEventHandler(show_prop_prior);
             ShapeCanvas.Children.Add(c);
-            Canvas.SetLeft(c, e.GetPosition(this.ShapeCanvas).X-20);
-            Canvas.SetTop(c, e.GetPosition(this.ShapeCanvas).Y-20);
+            Canvas.SetLeft(c, e.GetPosition(this.ShapeCanvas).X - 20);
+            Canvas.SetTop(c, e.GetPosition(this.ShapeCanvas).Y - 20);
             Canvas.SetZIndex(c, 5);
-            
+
         }
 
-     
+
 
         public void RemoveChild(Canvas canvas, Point position)
         {
@@ -452,7 +458,7 @@ namespace myapp
         {
             var canvas = sender as Canvas;
             RemoveChild(canvas, e.GetPosition(canvas));
-           
+
         }
 
         private void ele_copes(object sender, MouseButtonEventArgs e)
@@ -482,7 +488,7 @@ namespace myapp
 
         private void ele_copes_ad(object sender, MouseButtonEventArgs e)
         {
-            if (cty.Move&&e.LeftButton==MouseButtonState.Released)
+            if (cty.Move && e.LeftButton == MouseButtonState.Released)
             {
                 isDragging = false;
                 var c = sender as ele;
@@ -493,7 +499,7 @@ namespace myapp
 
         private void ele_move(object sender, MouseEventArgs e)
         {
-          
+
             if (cty.Move)
             {
                 var c = sender as ele;
@@ -506,25 +512,51 @@ namespace myapp
 
                     c.x_label = Convert.ToInt32(curp.X);
                     c.y_label = Convert.ToInt32(curp.Y);
-               
+
                 }
             }
         }
         private void ele_border_show(object sender, MouseEventArgs e)
         {
-            var c = sender as ele;
-            c.border.Stroke = new SolidColorBrush(Colors.GhostWhite);
+            if (this.allow_show_property)
+            {
+                var c = sender as ele;
+                c.border.Stroke = new SolidColorBrush(Colors.GhostWhite);
+            }
         }
         private void ele_border_hide(object sender, MouseEventArgs e)
         {
-            var c = sender as ele;
-            c.border.Stroke = new SolidColorBrush(Colors.Transparent);
+            if (this.allow_show_property)
+            {
+                var c = sender as ele;
+                c.border.Stroke = new SolidColorBrush(Colors.Transparent);
+            }
         }
         private void show_prop(object sender, MouseEventArgs e)
         {
-            ele c = (ele)sender;
-            curele_in_panel = (ele)sender;
-            access_panel(c);
+            if (this.allow_show_property)
+            {
+                ele c = (ele)sender;
+                curele_in_panel = (ele)sender;
+                access_panel(c);
+            }
+        }
+        private void show_prop_prior(object sender, MouseEventArgs e)
+        {
+            if (this.allow_show_property)
+            {
+                ele c = (ele)sender;
+                curele_in_panel = (ele)sender;
+                access_panel(c);
+                c.border.Stroke = new SolidColorBrush(Colors.GhostWhite);
+                this.allow_show_property = false;
+            }
+            else
+            {
+                ele c = (ele)sender;
+                this.allow_show_property = true;
+                c.border.Stroke = new SolidColorBrush(Colors.Transparent);
+            }
         }
 
         public void access_panel(ele cir)
@@ -602,13 +634,161 @@ namespace myapp
             {
                 if (c is ele)
                 {
-                   
+
                     ele circle_ = c as ele;
                     circle_.change_color(Colors.Black);
                 }
-              
+
             }
             reset_count_down();
         }
+        //fenzu
+        bool mouseDown = false; // Set to 'true' when mouse is held down.
+        Point mouseDownPos; // The point where the mouse button was clicked down.
+        Rectangle selection = null;
+
+        private void rect_down(object sender, MouseButtonEventArgs e)
+        {
+            // Capture and track the mouse.
+            if (cty.Gp||cty.Gm||cty.Gx)
+            {
+                if (cty.Gp) selection = this.selection_p;
+                if (cty.Gm) selection = this.selection_m;
+                if (cty.Gx) selection = this.selection_x;
+                mouseDown = true;
+                mouseDownPos = e.GetPosition(this.ShapeCanvas);
+
+                // Initial placement of the drag selection box.         
+                Canvas.SetLeft(selection, mouseDownPos.X);
+                Canvas.SetTop(selection, mouseDownPos.Y);
+                Canvas.SetZIndex(selection, 5);
+                selection.Width = 0;
+                selection.Height = 0;
+
+                // Make the drag selection box visible.
+                selection.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void rect_up(object sender, MouseButtonEventArgs e)
+        {
+            if (cty.Gp || cty.Gm || cty.Gx)
+            {
+                if (cty.Gp) selection = this.selection_p;
+                if (cty.Gm) selection = this.selection_m;
+                if (cty.Gx) selection = this.selection_x;
+                // Release the mouse capture and stop tracking it.
+                mouseDown = false;
+
+                // Hide the drag selection box.
+                selection.Visibility = Visibility.Collapsed;
+
+                Point mouseUpPos = e.GetPosition(this);
+
+                // TODO: 
+                //
+                // The mouse has been released, check to see if any of the items 
+                // in the other canvas are contained within mouseDownPos and 
+                // mouseUpPos, for any that are, select them!
+                //
+            }
+        }
+
+        private void rect_move(object sender, MouseEventArgs e)
+        {
+            if (cty.Gp || cty.Gm || cty.Gx)
+            {
+                if (cty.Gp) selection = this.selection_p;
+                if (cty.Gm) selection = this.selection_m;
+                if (cty.Gx) selection = this.selection_x;
+                if (mouseDown)
+                {
+                    // When the mouse is held down, reposition the drag selection box.
+
+                    Point mousePos = e.GetPosition(this.ShapeCanvas);
+
+                    //Canvas.SetLeft(selection_p, mouseDownPos.X);
+                    //Canvas.SetTop(selection_p, mouseDownPos.Y);
+                    //selection_p.Width = Math.Abs(mousePos.X - mouseDownPos.X);
+                    //selection_p.Height = Math.Abs(mouseDownPos.Y - mousePos.Y);
+                    if (mouseDownPos.X < mousePos.X)
+                    {
+                        Canvas.SetLeft(selection_p, mouseDownPos.X);
+                        selection.Width = mousePos.X - mouseDownPos.X;
+                    }
+                    else
+                    {
+                        Canvas.SetLeft(selection_p, mousePos.X);
+                        selection.Width = mouseDownPos.X - mousePos.X;
+                    }
+
+                    if (mouseDownPos.Y < mousePos.Y)
+                    {
+                        Canvas.SetTop(selection_p, mouseDownPos.Y);
+                        selection.Height = mousePos.Y - mouseDownPos.Y;
+                    }
+                    else
+                    {
+                        Canvas.SetTop(selection_p, mousePos.Y);
+                        selection.Height = mouseDownPos.Y - mousePos.Y;
+                    }
+                   
+                    if (cty.Gp)
+                    {
+                        ele grouped_ele=null,temp_ele=null;
+                        bool has_grouped=false;
+                        foreach(var c in LogicalTreeHelper.GetChildren(this.ShapeCanvas))
+                        {
+                            if(c is ele)
+                            {                              
+                                ele circle_ = c as ele;
+                                if (circle_.is_grouped)
+                                {
+                                    grouped_ele = circle_;
+                                    has_grouped = true;
+                                    break;
+                                }
+                                temp_ele = circle_;
+                            }
+                        }
+                        foreach (var c in LogicalTreeHelper.GetChildren(this.ShapeCanvas))
+                        {
+                            if (has_grouped && c is ele && (grouped_ele != null || temp_ele != null))
+                            {
+                                if (grouped_ele != null)
+                                {
+                                    ele circle_ = c as ele;
+                                    circle_.group_id = grouped_ele.group_id;
+                                    circle_.delay = grouped_ele.delay;
+                                    circle_.is_grouped = true;
+                                    circle_.duration = grouped_ele.duration;
+                                    circle_.set_st(grouped_ele.state);
+                                }
+                                else if (temp_ele != null)
+                                {
+                                    ele circle_ = c as ele;
+                                    circle_.group_id = temp_ele.group_id;
+                                    circle_.delay = temp_ele.delay;
+                                    circle_.is_grouped = true;
+                                    circle_.duration = temp_ele.duration;
+                                    circle_.set_st(temp_ele.state);
+
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+
+        private Boolean is_in_rect(Point a,Point b,Point center)
+        {
+
+        }
     }
 }
+
+
+
+
