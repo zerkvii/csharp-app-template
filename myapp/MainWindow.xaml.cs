@@ -37,7 +37,7 @@ namespace myapp
         private bool allow_show_property { get; set; }
         public int holes_index { get; set; }
         protected bool isDragging;
-        Brush _color1 = Brushes.YellowGreen;
+        Brush _color1 = Brushes.Black;
         Brush _color2 = Brushes.Red;
         private ele curele_in_panel;
         private int changeability = 0;
