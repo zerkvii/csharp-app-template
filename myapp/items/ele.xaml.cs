@@ -142,5 +142,24 @@ namespace myapp.items
             this.duration = cir.duration;
             this.set_st(cir.state);
         }
+        public void origined()
+        {
+            this.is_grouped = false;
+            this.group_id = 0;
+            this.color = 0;
+            this.delay = 2;
+            this.set_st(0);
+            this.duration = 3;
+            this.border.Fill = new SolidColorBrush(Colors.Transparent);
+       
+        }
+        public void group_signed()
+        {
+            this.group_sign.Fill = new SolidColorBrush(Colors.Green);
+        }
+        public void not_grouped()
+        {
+            this.group_sign.Fill = new SolidColorBrush(Colors.Gray);
+        }
     }
 }

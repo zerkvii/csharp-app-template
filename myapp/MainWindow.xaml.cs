@@ -139,6 +139,14 @@ namespace myapp
                     this.countd = this.start_time;
                     this.remains = 0;
                     this.timer_label.Text = "爆破完毕";
+                    foreach (var c in LogicalTreeHelper.GetChildren(this.ShapeCanvas))
+                    {
+                        if (c is ele)
+                        {
+                            ele circle_ = c as ele;
+                            circle_.origined();
+                        }
+                    }
                 }
             }
 
@@ -596,7 +604,7 @@ namespace myapp
 
         private void dual_delay(object sender, TextChangedEventArgs e)
         {
-            if (IsInteger(this.delay_time.Text.Trim()))
+            if (IsInteger(this.delay_time.Text.Trim()) && curele_in_panel != null)
             {
                 this.curele_in_panel.change_delay(int.Parse(this.delay_time.Text.Trim()));
                 //this.test_label.Text = changeability.ToString() + " " + this.curele_in_panel.delay.ToString();
@@ -606,7 +614,7 @@ namespace myapp
 
         private void dual_group(object sender, TextChangedEventArgs e)
         {
-            if (IsInteger(this.group_id.Text.Trim()))
+            if (IsInteger(this.group_id.Text.Trim())&&curele_in_panel!=null)
             {
                 this.curele_in_panel.change_group_id(int.Parse(this.group_id.Text.Trim()));
                 //this.test_label.Text = changeability.ToString() + " " + this.curele_in_panel.group_id.ToString();
@@ -617,7 +625,7 @@ namespace myapp
 
         private void dual_bomb_last(object sender, TextChangedEventArgs e)
         {
-            if (IsInteger(this.bomb_duration.Text.Trim()))
+            if (IsInteger(this.bomb_duration.Text.Trim()) && curele_in_panel != null)
             {
                 this.curele_in_panel.change_duration(int.Parse(this.bomb_duration.Text.Trim()));
                 //this.test_label.Text = changeability.ToString() + " " + this.curele_in_panel.duration.ToString();
@@ -693,7 +701,7 @@ namespace myapp
 
             if (cty.Gp || cty.Gm || cty.Gx)
             {
-                this.allow_show_property = false;
+                //this.allow_show_property = false;
                 //if (cty.Gp) selection = this.selection_p;
                 //if (cty.Gm) selection = this.selection_m;
                 //if (cty.Gx) selection = this.selection_x;
@@ -717,7 +725,7 @@ namespace myapp
                             Point center = new Point(cir.x_label, cir.y_label);
                             if (is_in_rect(mouseDownPos, mouseUpPos, center))
                             {
-                                cir.border.Stroke = new SolidColorBrush(Colors.Green);
+                                cir.group_signed();
                                 templist.Add(cir);
                             }
 
@@ -736,7 +744,7 @@ namespace myapp
                             Point center = new Point(cir.x_label, cir.y_label);
                             if (is_in_rect(mouseDownPos, mouseUpPos, center))
                             {
-                                cir.border.Stroke = new SolidColorBrush(Colors.Transparent);
+                                cir.not_grouped();
                                 templist.Add(cir);
 
                             }
@@ -758,7 +766,7 @@ namespace myapp
                             Point center = new Point(cir.x_label, cir.y_label);
                             if (!is_in_rect(mouseDownPos, mouseUpPos, center))
                             {
-                                cir.border.Stroke = new SolidColorBrush(Colors.Transparent);
+                                cir.not_grouped();
                                 templist.Add(cir);
                             }
 
