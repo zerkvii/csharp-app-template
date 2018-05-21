@@ -57,14 +57,14 @@
                     </fa:ImageAwesome>
                 </Button>
                 <TextBlock Text="打孔" FontSize="18" HorizontalAlignment="Center"></TextBlock>
-                <Button  Height="60" Margin="0,0,0,0" Click="Set_pen_cursor" Background="Transparent" BorderBrush="Transparent">
+                <!--<Button  Height="60" Margin="0,0,0,0" Click="Set_pen_cursor" Background="Transparent" BorderBrush="Transparent">
                     <fa:ImageAwesome Icon="PencilSquareOutline"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FF4A148C">
                         <fa:ImageAwesome.Effect>
                             <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
                         </fa:ImageAwesome.Effect>
                     </fa:ImageAwesome>
-                </Button>
-                <TextBlock Text="标注" FontSize="18" HorizontalAlignment="Center"></TextBlock>
+                </Button>-->
+                <!--<TextBlock Text="标注" FontSize="18" HorizontalAlignment="Center"></TextBlock>-->
 
                 <Button  Height="60" Margin="0,0,0,0" Click="Set_bomb_cursor" Background="Transparent" BorderBrush="Transparent">
                     <fa:ImageAwesome Icon="Bomb"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FFB71C1C">
@@ -91,7 +91,7 @@
                         </fa:ImageAwesome.Effect>
                     </fa:ImageAwesome>
                 </Button>
-                <TextBlock Text="擦除" FontSize="18" HorizontalAlignment="Center"></TextBlock>
+                <TextBlock Text="删除炮孔" FontSize="18" HorizontalAlignment="Center"></TextBlock>
 
                 <Button  Height="60" Margin="0,0,0,0" Click="Set_crossp_cursor" Background="Transparent" BorderBrush="Transparent" Foreground="#FFFF6F00">
                     <fa:ImageAwesome Icon="Plus"  Margin="0,0,0,0" Width="25" Height="25" Foreground="#FFFF6F00">
@@ -135,7 +135,7 @@
                 <TextBlock Margin="149,12,1065,15" FontSize="18" FontFamily="Microsoft YaHei UI Light" Text="缩放比例" Foreground="#DD000000"/>
                 <!--<Slider Height="40" Grid.Row="0" ValueChanged="SliderValue_OnValueChanged" Margin="342,11,9,9" Minimum="5" Maximum="100" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" Name="SliderValue"   Foreground="#FF0E0E0E"></Slider>-->
                 <TextBlock Margin="0,11,1207,16" FontSize="18" FontFamily="Microsoft YaHei UI Light" Foreground="#DD000000" RenderTransformOrigin="0.431,0.306"><Run Text=" "/><Run Text="显示网格线"/><Run Text=" "/></TextBlock>
-                <TextBlock x:Name="test_label" Margin="804,16,297,11" FontSize="18" FontFamily="Microsoft YaHei UI Light" Text="test" Foreground="#DD000000"/>
+                <TextBlock x:Name="test_label" Margin="696,12,405,15" FontSize="18" FontFamily="Microsoft YaHei UI Light" Text="" Foreground="#DD000000"/>
                 <CheckBox Grid.Row="0"  IsChecked="False" IsEnabled="True" Content="" x:Name="ShowGridlines"  Checked="ShowGridlines_OnChecked" Unchecked="ShowGridlines_OnUnchecked" HorizontalAlignment="Left" Margin="100,12,0,0" VerticalAlignment="Top" Height="22" />
                 <Slider Width="370"  x:Name="slidval" Minimum="10" Maximum="100" ValueChanged="SliderValue_OnValueChanged" HorizontalAlignment="Left" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True"  Margin="242,16,0,0" VerticalAlignment="Top" Foreground="White"/>
                 <TextBlock x:Name="timer_label" TextAlignment="Center" Margin="1178,16,10,11" FontSize="18" FontFamily="Microsoft YaHei UI Light" Foreground="#DD000000" Text="00:00"/>
@@ -146,16 +146,17 @@
                 <Canvas  MouseLeftButtonDown="cursor_event_handlers" MouseLeftButtonUp="rect_up" MouseMove="rect_move"  x:Name="ShapeCanvas" Background="#FFC3C3C3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,2,195,0">
                     <Rectangle Panel.ZIndex="3" Height="678" Width="605"  Canvas.Top="66" Canvas.Left="55">
                         <Rectangle.Fill>
-                            <ImageBrush ImageSource="base.png">
+                            <ImageBrush ImageSource="bg1.png">
                             </ImageBrush>
                         </Rectangle.Fill>
                     </Rectangle>
-                    <Rectangle x:Name="selection_p" Visibility="Collapsed" Stroke="Black" StrokeThickness="2"/>
                     <Rectangle x:Name="selection_m" Visibility="Collapsed" Stroke="Pink" StrokeThickness="2"/>
+                    <Rectangle x:Name="selection_p" Visibility="Collapsed" Stroke="Black" StrokeThickness="2"/>
+
                     <Rectangle x:Name="selection_x" Visibility="Collapsed" Stroke="Yellow" StrokeThickness="2"/>
 
                 </Canvas>
-                
+
                 <Grid DockPanel.Dock="Top" MouseEnter="allow_change" Visibility="Visible" x:Name="property_panel"  HorizontalAlignment="Right" Width="250" Margin="0,0,190,0" Background="#FF314B81">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto" MinHeight="18"/>
@@ -191,12 +192,13 @@
                     <TextBox Grid.Row="6" TextChanged="dual_bomb_last" x:Name="bomb_duration" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="14" Margin="127,22,44,16" Width="79" Foreground="#DDFFF7F7" Background="{x:Null}" BorderBrush="#89FFFFFF" CaretBrush="Black" SelectionBrush="Black"/>
                     <TextBlock Grid.Row="6" Text="s" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI Light" FontSize="18" Margin="184,24,52,19" Width="14" Foreground="#DDFFF7F7"/>
                     <TextBlock HorizontalAlignment="Left" Margin="57,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="爆破孔属性面板" VerticalAlignment="Top" Foreground="#DDFFFFFF" FontFamily="Microsoft YaHei UI" FontSize="18"/>
+                    <TextBox Grid.Row="2" x:Name="delay_time_Copy" TextChanged="dual_delay"  Margin="127,100,41,10" Foreground="#DDFFF1F1" CaretBrush="Black" SelectionBrush="Black" BorderBrush="#89FFFFFF"/>
 
 
                 </Grid>
                 <StackPanel HorizontalAlignment="Right" Background="#FF636980" VerticalAlignment="Stretch" Width="195">
                     <Grid Panel.ZIndex="2" Visibility="Visible" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  >
-                        <TextBox x:Name="start_time_box" TextChanged="dual_start_timer" HorizontalAlignment="Left" Height="48"  materialDesign:HintAssist.IsFloating="True" materialDesign:HintAssist.HintOpacity="0.9" Margin="27,97,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="起爆时间"  VerticalAlignment="Top" Width="139" RenderTransformOrigin="0.698,0.87" FontSize="18" FontFamily="Microsoft YaHei UI Light" BorderBrush="#89000000" CaretBrush="Black" SelectionBrush="Black" Background="{x:Null}" Foreground="#DDFFFFFF"/>
+                        <TextBox x:Name="start_time_box" TextChanged="dual_start_timer" TextAlignment="Center" HorizontalAlignment="Left" Height="48"  materialDesign:HintAssist.IsFloating="True" materialDesign:HintAssist.HintOpacity="0.9" Margin="27,97,0,0"  materialDesign:HintAssist.Hint="起爆时间"  VerticalAlignment="Top" Width="139" RenderTransformOrigin="0.698,0.87" FontSize="18" FontFamily="Microsoft YaHei UI Light" BorderBrush="#89000000" CaretBrush="Black" SelectionBrush="Black" Background="{x:Null}" Foreground="#DDFFFFFF"/>
                         <Button   Click="_pause" Style="{StaticResource MaterialDesignFloatingActionButton}" Background="#FF00AEFF" BorderBrush="{x:Null}" Foreground="#DDFFFFFF" Margin="68,180,71,156">
                             <materialDesign:PackIcon Kind="{Binding Kind_type}" Width="30" Height="30"/>
                         </Button>
@@ -217,7 +219,46 @@
                         <Label Content="操作面板" HorizontalAlignment="Left" Margin="60,22,0,0" VerticalAlignment="Top" Width="84" Foreground="#DDFFFCFC" FontFamily="Microsoft YaHei UI" FontSize="18"/>
                     </Grid>
                 </StackPanel>
+                <Grid x:Name="group_panel" Visibility="Collapsed" Background="#FF665772" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="228" Margin="0,2,440,-2">
+                    <Rectangle Panel.ZIndex="0" Fill="Transparent" HorizontalAlignment="Left" Height="207" Margin="96,373,0,0" Stroke="White"  VerticalAlignment="Top" Width="108"/>
 
+                    <TextBlock Text="分组属性"  VerticalAlignment="Top" TextAlignment="Center" Margin="0,25,0,0" FontSize="18" Foreground="White" FontFamily="Microsoft YaHei UI"/>
+                    <TextBlock Text="分组编号"  VerticalAlignment="Top" TextAlignment="Left" Margin="10,140,137,0" FontSize="18" Foreground="White" FontFamily="Microsoft YaHei UI"/>
+                    <TextBox x:Name="group_text_block" HorizontalAlignment="Stretch" VerticalAlignment="Top" TextAlignment="Center" Margin="112,140,24,0" FontFamily="Microsoft YaHei UI" FontSize="16" Foreground="#DDFFFFFF" BorderBrush="#89FFFFFF"></TextBox>
+                    <TextBlock Text="总数"  VerticalAlignment="Top" TextAlignment="Center" Margin="10,206,137,0" FontSize="18" Foreground="White" FontFamily="Microsoft YaHei UI"/>
+                    <TextBlock x:Name="ele_sum" Text="#"  VerticalAlignment="Top" TextAlignment="Center" Margin="112,206,35,0" FontSize="18" Foreground="White" FontFamily="Microsoft YaHei UI"/>
+                    <TextBlock Text="延时"  VerticalAlignment="Top" TextAlignment="Center" Margin="10,262,137,0" FontSize="18" Foreground="White" FontFamily="Microsoft YaHei UI"/>
+                    <TextBlock Text="爆炸时间"  VerticalAlignment="Top" TextAlignment="Center" Margin="10,320,137,0" FontSize="18" Foreground="White" FontFamily="Microsoft YaHei UI"/>
+                    <TextBox x:Name="delay_text_block" HorizontalAlignment="Stretch" VerticalAlignment="Top" TextAlignment="Center" Margin="112,256,24,0" FontFamily="Microsoft YaHei UI" FontSize="16" Foreground="#DDFFFFFF" BorderBrush="#89FFFFFF"></TextBox>
+                    <TextBox x:Name="bomb_text_block" HorizontalAlignment="Stretch" VerticalAlignment="Top" TextAlignment="Center" Margin="112,314,24,0" FontFamily="Microsoft YaHei UI" FontSize="16" Foreground="#DDFFFFFF" BorderBrush="#89FFFFFF"></TextBox>
+                    <Button  Click="set_group" Style="{StaticResource MaterialDesignFloatingActionButton}" Background="#FF00AEFF" BorderBrush="{x:Null}" Foreground="#DDFFFFFF" Margin="83,632,89,110">
+                        <materialDesign:PackIcon Kind="Group" Width="30" Height="30"/>
+                    </Button>
+                    <TextBlock Text="确定分组"  VerticalAlignment="Top" TextAlignment="Center" Margin="71,703,77,0" FontSize="18" Foreground="White" FontFamily="Microsoft YaHei UI"/>
+                    <TextBlock Text="装药状态"  VerticalAlignment="Top" TextAlignment="Center" Margin="10,377,137,0" FontSize="18" Foreground="White" FontFamily="Microsoft YaHei UI"/>
+                    <Button Click="plain_down"  Height="60" Width="60" Margin="119,388,49,350"  Background="Transparent" BorderBrush="Transparent">
+                        <fa:ImageAwesome x:Name="plain_state_icon" Icon="CircleOutline"  Margin="0,0,0,0" Width="25" Height="25" Foreground="Green">
+                            <fa:ImageAwesome.Effect>
+                                <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
+                            </fa:ImageAwesome.Effect>
+                        </fa:ImageAwesome>
+                    </Button>
+                    <Button  Click="bomb_down" Height="60" Width="60" Margin="119,448,49,290"  Background="Transparent" BorderBrush="Transparent">
+                        <fa:ImageAwesome x:Name="bomb_state_icon" Icon="Bomb"  Margin="0,0,0,0" Width="25" Height="25" Foreground="Green">
+                            <fa:ImageAwesome.Effect>
+                                <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
+                            </fa:ImageAwesome.Effect>
+                        </fa:ImageAwesome>
+                    </Button>
+                    <Button Click="rocket_down"  Height="60" Width="60" Margin="119,513,49,225"  Background="Transparent" BorderBrush="Transparent">
+                        <fa:ImageAwesome x:Name="rocket_state_icon" Icon="Rocket"  Margin="0,0,0,0" Width="25" Height="25" Foreground="Green">
+                            <fa:ImageAwesome.Effect>
+                                <DropShadowEffect Color="#FF4D3B3B" Direction="275" Opacity="0.75" ShadowDepth="2"/>
+                            </fa:ImageAwesome.Effect>
+                        </fa:ImageAwesome>
+                    </Button>
+
+                </Grid>
             </Grid>
 
         </DockPanel>

@@ -135,5 +135,12 @@ namespace myapp.items
             this.el3.Fill = new SolidColorBrush(Color.FromRgb(195, 195, 195));
             this.state = 0;
         }
+        public void synchronize_ele(ele cir)
+        {
+            this.delay = cir.delay;
+            this.is_grouped = cir.is_grouped;
+            this.duration = cir.duration;
+            this.set_st(cir.state);
+        }
     }
 }

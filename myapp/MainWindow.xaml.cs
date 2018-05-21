@@ -30,6 +30,7 @@ namespace myapp
         public DispatcherTimer timer { set; get; }
         public Cursors_type cty { get; set; }
         public int cd { set; get; }
+        public int countd { get; set; }
         public int start_time { get; set; }
         public int holes_num { get; set; }
         private int remains { get; set; }
@@ -41,6 +42,7 @@ namespace myapp
         private ele curele_in_panel;
         private int changeability = 0;
         private Utils ut;
+        private int group_state { get; set; }
         public sealed class cursorhelper
         {
             private cursorhelper() { }
@@ -58,7 +60,9 @@ namespace myapp
         public MainWindow()
 
         {
+            this.group_state = 0;
             this.remains = 0;
+            this.countd = 4;
             this.holes_num = 0;
             this.holes_index = 0;
             this.allow_show_property = true;
@@ -73,8 +77,8 @@ namespace myapp
             cty = new Cursors_type();
             //属性栏隐藏
             this.property_panel.Visibility = Visibility.Visible;
-            this.start_time = 5;
-            this.cd = 1;
+            this.start_time = 4;
+            this.cd = 0;
             //计时器初始化
             timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 1);
@@ -84,8 +88,13 @@ namespace myapp
         private void timer_Tick(object sender, EventArgs e)
         {
             this.cd++;
-
-            this.timer_label.Text = string.Format("{0:D2}:{1:D2}", cd / 60, cd % 60);
+            this.countd--;
+            if(countd>0)
+            this.timer_label.Text = string.Format("{0:D2}:{1:D2}", countd / 60, countd % 60);
+            else
+            {
+                this.timer_label.Text = "开始爆破";
+            }
             int temp_cutd = cd - this.start_time;
             if (temp_cutd == 0)
             {
@@ -124,11 +133,12 @@ namespace myapp
                 if (remains == this.holes_num)
                 {
                     ut.Kind_type = "Play";
-                    this.test_label.Text = "chnaged";
+                    //this.test_label.Text = "chnaged";
                     this.timer.Stop();
                     this.cd = 0;
+                    this.countd = this.start_time;
                     this.remains = 0;
-                    this.timer_label.Text = string.Format("{0:D2}:{1:D2}", cd / 60, cd % 60);
+                    this.timer_label.Text = "爆破完毕";
                 }
             }
 
@@ -170,7 +180,7 @@ namespace myapp
             {
                 if (p.Name.Equals(name))
                 {
-                    this.test_label.Text = name;
+                    //this.test_label.Text = name;
                     p.SetValue(cty, true, null);
                     return true;
                 }
@@ -184,7 +194,7 @@ namespace myapp
         {
             cur = cursorhelper.frombytearray(Properties.Resources.circ);
             this.Cursor = cur;
-            if (Cur_rep("Hole")) this.test_label.Text = "打孔";
+            //if (Cur_rep("Hole")) this.test_label.Text = "打孔";
             cty.set_attr_val("Hole");
         }
 
@@ -192,7 +202,7 @@ namespace myapp
         {
             cur = cursorhelper.frombytearray(Properties.Resources.handwriting);
             this.Cursor = cur;
-            if (Cur_rep("Draft")) this.test_label.Text = "备注";
+            //if (Cur_rep("Draft")) this.test_label.Text = "备注";
             cty.set_attr_val("Draft");
         }
 
@@ -200,7 +210,7 @@ namespace myapp
         {
             cur = cursorhelper.frombytearray(Properties.Resources.bomb);
             this.Cursor = cur;
-            if (Cur_rep("Bomb_s")) this.test_label.Text = "连续装药";
+            //if (Cur_rep("Bomb_s")) this.test_label.Text = "连续装药";
             cty.set_attr_val("Bomb_s");
         }
 
@@ -208,7 +218,7 @@ namespace myapp
         {
             cur = cursorhelper.frombytearray(Properties.Resources.bomb_a);
             this.Cursor = cur;
-            if (Cur_rep("Bomb_a")) this.test_label.Text = "空气炸药";
+            //if (Cur_rep("Bomb_a")) this.test_label.Text = "空气炸药";
             cty.set_attr_val("Bomb_a");
         }
 
@@ -216,7 +226,7 @@ namespace myapp
         {
             cur = cursorhelper.frombytearray(Properties.Resources.eraser);
             this.Cursor = cur;
-            if (Cur_rep("Eraser")) this.test_label.Text = "橡皮擦";
+            //if (Cur_rep("Eraser")) this.test_label.Text = "橡皮擦";
             cty.set_attr_val("Eraser");
         }
 
@@ -224,7 +234,7 @@ namespace myapp
         {
             cur = cursorhelper.frombytearray(Properties.Resources.cross);
             this.Cursor = cur;
-            if (Cur_rep("Gp")) this.test_label.Text = "分组添加";
+            //if (Cur_rep("Gp")) this.test_label.Text = "分组添加";
             cty.set_attr_val("Gp");
         }
 
@@ -232,7 +242,7 @@ namespace myapp
         {
             cur = cursorhelper.frombytearray(Properties.Resources.cross);
             this.Cursor = cur;
-            if (Cur_rep("Gx")) this.test_label.Text = "分组交叉";
+            //if (Cur_rep("Gx")) this.test_label.Text = "分组交叉";
             cty.set_attr_val("Gx");
         }
 
@@ -240,7 +250,7 @@ namespace myapp
         {
             cur = cursorhelper.frombytearray(Properties.Resources.cross);
             this.Cursor = cur;
-            if (Cur_rep("Gm")) this.test_label.Text = "分组移除";
+            //if (Cur_rep("Gm")) this.test_label.Text = "分组移除";
             cty.set_attr_val("Gm");
         }
 
@@ -248,7 +258,7 @@ namespace myapp
         {
             cur = cursorhelper.frombytearray(Properties.Resources.normal_select_blue);
             this.Cursor = cur;
-            if (Cur_rep("Move")) this.test_label.Text = "移动";
+            //if (Cur_rep("Move")) this.test_label.Text = "移动";
             cty.set_attr_val("Move");
 
         }
@@ -256,15 +266,19 @@ namespace myapp
 
         private void _pause(object sender, RoutedEventArgs e)
         {
-            if (ut.Kind_type.ToString().Equals("Play")) init_count_down();
+            if (ut.Kind_type.ToString().Equals("Play"))
+            {
+                init_count_down();
+            }
             else reset_count_down();
         }
         private void init_count_down()
         {
             //ut.Kind_type = ut.Kind_type.ToString().Equals("Play") ? "Pause" : "Play";
+            this.countd = start_time;
             ut.Kind_type = "Pause";
             this.timer.Start();
-            this.timer_label.Text = string.Format("{0:D2}:{1:D2}", cd / 60, cd % 60);
+            this.timer_label.Text = string.Format("{0:D2}:{1:D2}", countd / 60, countd % 60);
             //this.test_label.Text = ut.Kind_type.ToString();
             //this.test_label.Text = this.start_time_box.Text;
             //Console.Write("heelo");
@@ -283,7 +297,7 @@ namespace myapp
         }
         private bool IsInteger(string value)
         {
-            string pattern = @"^\d$";
+            string pattern = @"^\d+$";
             return Regex.IsMatch(value, pattern);
         }
         private void _refresh(object sender, RoutedEventArgs e)
@@ -292,7 +306,7 @@ namespace myapp
             {
                 if (c is ele)
                 {
-                    this.test_label.Text = "refresh";
+                    //this.test_label.Text = "refresh";
                     ele circle_ = c as ele;
                     circle_.refresh();
 
@@ -340,7 +354,7 @@ namespace myapp
             RemoveGraph(mainCanvas);
             Image lines = new Image();
             lines.SetValue(Panel.ZIndexProperty, -100);
-            this.test_label.Text = Panel.ZIndexProperty.ToString();
+            //this.test_label.Text = Panel.ZIndexProperty.ToString();
             //Draw the grid
             DrawingVisual gridLinesVisual = new DrawingVisual();
             DrawingContext dct = gridLinesVisual.RenderOpen();
@@ -510,8 +524,8 @@ namespace myapp
                     Canvas.SetLeft(c, curp.X - 20);
                     Canvas.SetTop(c, curp.Y - 20);
 
-                    c.x_label = Convert.ToInt32(curp.X);
-                    c.y_label = Convert.ToInt32(curp.Y);
+                    c.x_label = Convert.ToInt32(curp.X-20);
+                    c.y_label = Convert.ToInt32(curp.Y-20);
 
                 }
             }
@@ -585,7 +599,7 @@ namespace myapp
             if (IsInteger(this.delay_time.Text.Trim()))
             {
                 this.curele_in_panel.change_delay(int.Parse(this.delay_time.Text.Trim()));
-                this.test_label.Text = changeability.ToString() + " " + this.curele_in_panel.delay.ToString();
+                //this.test_label.Text = changeability.ToString() + " " + this.curele_in_panel.delay.ToString();
 
             }
         }
@@ -595,7 +609,7 @@ namespace myapp
             if (IsInteger(this.group_id.Text.Trim()))
             {
                 this.curele_in_panel.change_group_id(int.Parse(this.group_id.Text.Trim()));
-                this.test_label.Text = changeability.ToString() + " " + this.curele_in_panel.group_id.ToString();
+                //this.test_label.Text = changeability.ToString() + " " + this.curele_in_panel.group_id.ToString();
             }
 
         }
@@ -606,17 +620,18 @@ namespace myapp
             if (IsInteger(this.bomb_duration.Text.Trim()))
             {
                 this.curele_in_panel.change_duration(int.Parse(this.bomb_duration.Text.Trim()));
-                this.test_label.Text = changeability.ToString() + " " + this.curele_in_panel.duration.ToString();
+                //this.test_label.Text = changeability.ToString() + " " + this.curele_in_panel.duration.ToString();
             }
         }
 
         private void dual_start_timer(object sender, TextChangedEventArgs e)
         {
-            this.test_label.Text = this.start_time_box.Text;
+               
             if (IsInteger(this.start_time_box.Text.Trim()))
             {
-                this.test_label.Text = this.start_time_box.Text.Trim();
+                //this.test_label.Text = this.start_time_box.Text.Trim();
                 this.start_time = int.Parse(this.start_time_box.Text.Trim());
+                this.countd = start_time;
             }
         }
 
@@ -628,7 +643,8 @@ namespace myapp
         private void recountdown(object sender, RoutedEventArgs e)
         {
             this.cd = 0;
-            this.timer_label.Text = string.Format("{0:D2}:{1:D2}", cd / 60, cd % 60);
+            this.countd = start_time;
+            this.timer_label.Text = string.Format("{0:D2}:{1:D2}", countd / 60, countd % 60);
             this.timer.Stop();
             foreach (var c in LogicalTreeHelper.GetChildren(this.ShapeCanvas))
             {
@@ -646,15 +662,16 @@ namespace myapp
         bool mouseDown = false; // Set to 'true' when mouse is held down.
         Point mouseDownPos; // The point where the mouse button was clicked down.
         Rectangle selection = null;
-
+        List<ele> ele_list = new List<ele>();
         private void rect_down(object sender, MouseButtonEventArgs e)
         {
             // Capture and track the mouse.
             if (cty.Gp||cty.Gm||cty.Gx)
             {
-                if (cty.Gp) selection = this.selection_p;
                 if (cty.Gm) selection = this.selection_m;
                 if (cty.Gx) selection = this.selection_x;
+                if (cty.Gp) selection = this.selection_p;
+              
                 mouseDown = true;
                 mouseDownPos = e.GetPosition(this.ShapeCanvas);
 
@@ -672,25 +689,93 @@ namespace myapp
 
         private void rect_up(object sender, MouseButtonEventArgs e)
         {
+           
+
             if (cty.Gp || cty.Gm || cty.Gx)
             {
-                if (cty.Gp) selection = this.selection_p;
-                if (cty.Gm) selection = this.selection_m;
-                if (cty.Gx) selection = this.selection_x;
+                this.allow_show_property = false;
+                //if (cty.Gp) selection = this.selection_p;
+                //if (cty.Gm) selection = this.selection_m;
+                //if (cty.Gx) selection = this.selection_x;
                 // Release the mouse capture and stop tracking it.
                 mouseDown = false;
 
                 // Hide the drag selection box.
                 selection.Visibility = Visibility.Collapsed;
 
-                Point mouseUpPos = e.GetPosition(this);
+                Point mouseUpPos = e.GetPosition(this.ShapeCanvas);
+                //this.test_label.Text = mouseDownPos.X + "  down  " + mouseDownPos.Y + "  " + mouseUpPos.X + "  " + mouseUpPos.Y;
+                if (cty.Gp)
+                {
+                    List<ele> templist = new List<ele>();
+                    foreach (var c in LogicalTreeHelper.GetChildren(this.ShapeCanvas))
+                    {
+                        if (c is ele)
+                        {
 
+                            ele cir = c as ele;
+                            Point center = new Point(cir.x_label, cir.y_label);
+                            if (is_in_rect(mouseDownPos, mouseUpPos, center))
+                            {
+                                cir.border.Stroke = new SolidColorBrush(Colors.Green);
+                                templist.Add(cir);
+                            }
+
+                        }
+                    }
+                    ele_list = ele_list.Union(templist).ToList<ele>();
+                }else if (cty.Gm)
+                {
+                    List<ele> templist = new List<ele>();
+                    foreach (var c in LogicalTreeHelper.GetChildren(this.ShapeCanvas))
+                    {
+                        if (c is ele)
+                        {
+
+                            ele cir = c as ele;
+                            Point center = new Point(cir.x_label, cir.y_label);
+                            if (is_in_rect(mouseDownPos, mouseUpPos, center))
+                            {
+                                cir.border.Stroke = new SolidColorBrush(Colors.Transparent);
+                                templist.Add(cir);
+
+                            }
+
+                        }
+                    }
+                    ele_list = ele_list.Except(templist).ToList<ele>();
+
+                }
+                else
+                {
+                    List<ele> templist = new List<ele>();
+                    foreach (var c in LogicalTreeHelper.GetChildren(this.ShapeCanvas))
+                    {
+                        if (c is ele)
+                        {
+
+                            ele cir = c as ele;
+                            Point center = new Point(cir.x_label, cir.y_label);
+                            if (!is_in_rect(mouseDownPos, mouseUpPos, center))
+                            {
+                                cir.border.Stroke = new SolidColorBrush(Colors.Transparent);
+                                templist.Add(cir);
+                            }
+
+                        }
+                    }
+                    ele_list=ele_list.Except(templist).ToList<ele>();
+                }
+                //this.test_label.Text = ele_list.Count.ToString();
                 // TODO: 
                 //
                 // The mouse has been released, check to see if any of the items 
                 // in the other canvas are contained within mouseDownPos and 
                 // mouseUpPos, for any that are, select them!
                 //
+                this.group_panel.Visibility = Visibility.Visible;
+                this.ele_sum.Text = ele_list.Count().ToString();
+
             }
         }
 
@@ -698,92 +783,126 @@ namespace myapp
         {
             if (cty.Gp || cty.Gm || cty.Gx)
             {
-                if (cty.Gp) selection = this.selection_p;
-                if (cty.Gm) selection = this.selection_m;
-                if (cty.Gx) selection = this.selection_x;
+                //if (cty.Gp) selection = this.selection_p;
+                //if (cty.Gm) selection = this.selection_m;
+                //if (cty.Gx) selection = this.selection_x;
                 if (mouseDown)
                 {
                     // When the mouse is held down, reposition the drag selection box.
 
                     Point mousePos = e.GetPosition(this.ShapeCanvas);
-
+                    //this.test_label.Text = mousePos.X + " " + mousePos.Y;
                     //Canvas.SetLeft(selection_p, mouseDownPos.X);
                     //Canvas.SetTop(selection_p, mouseDownPos.Y);
                     //selection_p.Width = Math.Abs(mousePos.X - mouseDownPos.X);
                     //selection_p.Height = Math.Abs(mouseDownPos.Y - mousePos.Y);
                     if (mouseDownPos.X < mousePos.X)
                     {
-                        Canvas.SetLeft(selection_p, mouseDownPos.X);
+                        Canvas.SetLeft(selection, mouseDownPos.X);
                         selection.Width = mousePos.X - mouseDownPos.X;
                     }
                     else
                     {
-                        Canvas.SetLeft(selection_p, mousePos.X);
+                        Canvas.SetLeft(selection, mousePos.X);
                         selection.Width = mouseDownPos.X - mousePos.X;
                     }
 
                     if (mouseDownPos.Y < mousePos.Y)
                     {
-                        Canvas.SetTop(selection_p, mouseDownPos.Y);
+                        Canvas.SetTop(selection, mouseDownPos.Y);
                         selection.Height = mousePos.Y - mouseDownPos.Y;
                     }
                     else
                     {
-                        Canvas.SetTop(selection_p, mousePos.Y);
+                        Canvas.SetTop(selection, mousePos.Y);
                         selection.Height = mouseDownPos.Y - mousePos.Y;
                     }
-                   
-                    if (cty.Gp)
-                    {
-                        ele grouped_ele=null,temp_ele=null;
-                        bool has_grouped=false;
-                        foreach(var c in LogicalTreeHelper.GetChildren(this.ShapeCanvas))
-                        {
-                            if(c is ele)
-                            {                              
-                                ele circle_ = c as ele;
-                                if (circle_.is_grouped)
-                                {
-                                    grouped_ele = circle_;
-                                    has_grouped = true;
-                                    break;
-                                }
-                                temp_ele = circle_;
-                            }
-                        }
-                        foreach (var c in LogicalTreeHelper.GetChildren(this.ShapeCanvas))
-                        {
-                            if (has_grouped && c is ele && (grouped_ele != null || temp_ele != null))
-                            {
-                                if (grouped_ele != null)
-                                {
-                                    ele circle_ = c as ele;
-                                    circle_.group_id = grouped_ele.group_id;
-                                    circle_.delay = grouped_ele.delay;
-                                    circle_.is_grouped = true;
-                                    circle_.duration = grouped_ele.duration;
-                                    circle_.set_st(grouped_ele.state);
-                                }
-                                else if (temp_ele != null)
-                                {
-                                    ele circle_ = c as ele;
-                                    circle_.group_id = temp_ele.group_id;
-                                    circle_.delay = temp_ele.delay;
-                                    circle_.is_grouped = true;
-                                    circle_.duration = temp_ele.duration;
-                                    circle_.set_st(temp_ele.state);
-
-                                }
-                            }
-                        }
-                    }
-
+                  
                 }
+              
             }
         }
 
         private Boolean is_in_rect(Point a,Point b,Point center)
         {
+            double x1 = center.X - a.X;
+            double x2 = center.X - b.X;
+            double y1 = center.Y - a.Y;
+            double y2 = center.Y - b.Y;
+            double ans = x1 * x2 + y2 * y1;
+            //FileStream fs = new FileStream("E://log.txt", FileMode.Append);
+            ////获得字节数组
+            //byte[] data = System.Text.Encoding.Default.GetBytes(ans.ToString()+" $ ");
+            ////开始写入
+            //fs.Write(data, 0, data.Length);
+            ////清空缓冲区、关闭流
+            //fs.Flush();
+            //fs.Close();
+            if (ans <= 0) return true;
+         
+            else return false;
+         
+
+        }
+
+        private void set_group(object sender, RoutedEventArgs e)
+        {
+
+            if (IsInteger(this.group_text_block.Text.Trim())&&IsInteger(this.delay_text_block.Text.Trim())&&IsInteger(this.bomb_text_block.Text.Trim())&&group_state!=0){
+                int group_ = int.Parse(this.group_text_block.Text.Trim());
+                int delay_ = int.Parse(this.delay_text_block.Text.Trim());
+                int bomb_ = int.Parse(this.bomb_text_block.Text.Trim());
+                Point p = new Point(0, 0);
+                ele sample = new ele(p, 0);
+                //sample.se
+                sample.set_st(group_state - 1);
+                sample.change_delay(delay_);
+                sample.change_duration(bomb_);
+                sample.change_group_id(group_);
+                foreach(ele cir in ele_list)
+                {
+                    cir.synchronize_ele(sample);
+                    cir.change_group_id(sample.group_id);
+                }
+                this.group_panel.Visibility = Visibility.Collapsed;
+                this.group_state = 0;
+                this.plain_state_icon.Foreground = new SolidColorBrush(Colors.Green);
+                this.bomb_state_icon.Foreground = new SolidColorBrush(Colors.Green);
+                this.rocket_state_icon.Foreground = new SolidColorBrush(Colors.Green);
+                this.ele_list.Clear();
+            }
+        }
+
+        private void plain_down(object sender, RoutedEventArgs e)
+        {
+         
+            
+                this.plain_state_icon.Foreground = new SolidColorBrush(Colors.OrangeRed);
+                this.bomb_state_icon.Foreground = new SolidColorBrush(Colors.Green);
+                this.rocket_state_icon.Foreground = new SolidColorBrush(Colors.Green);
+                group_state = 1;
+            
+
+        }
+
+        private void bomb_down(object sender, RoutedEventArgs e)
+        {
+
+            this.plain_state_icon.Foreground = new SolidColorBrush(Colors.Green);
+            this.bomb_state_icon.Foreground = new SolidColorBrush(Colors.OrangeRed);
+            this.rocket_state_icon.Foreground = new SolidColorBrush(Colors.Green);
+            group_state = 2;
+            
+        }
+
+        private void rocket_down(object sender, RoutedEventArgs e)
+        {
+          
+                this.plain_state_icon.Foreground = new SolidColorBrush(Colors.Green);
+                this.bomb_state_icon.Foreground = new SolidColorBrush(Colors.Green);
+                this.rocket_state_icon.Foreground = new SolidColorBrush(Colors.OrangeRed);
+                group_state = 3;
+            
 
         }
     }
